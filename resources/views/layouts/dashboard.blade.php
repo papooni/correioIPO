@@ -134,9 +134,9 @@
                             <li {{ (Request::is('*forms') ? 'class="active"' : '') }}>
                                 <a href="{{ url ('forms') }}"><i class="fa fa-cog fa-fw"></i> Definições<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
-                                    {{--<li>
+                                    <li>
                                         <a href="{{ url ('tipo_movimentos') }}">Tipo de Movimento</a>
-                                    </li>--}}
+                                    </li>
 
                                     <li>
                                         <a href="{{ url ('notificacoes') }}">Notificações</a>
