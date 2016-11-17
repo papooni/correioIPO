@@ -24,7 +24,7 @@ Route::get('/password/email', function(){
 });
 
 
-Route::group(['middleware' => 'ipomiddleware'], function() {
+
     Route::get('/logout', 'UserController@logout');//->middleware('auth');
 
     Route::get('/registar', function () {
@@ -167,4 +167,3 @@ Route::group(['middleware' => 'ipomiddleware'], function() {
     Route::post('servicos/apagar', 'ServicosController@apagar');
     Route::get('servicos/pesquisa', 'ServicosController@pesquisa');
 
-});
