@@ -14,7 +14,7 @@
                 </button>
                 <div>
                     <a class="navbar-brand" href="{{ url ('/home') }}">Gestão de Correio | IPO</a>
-                    <img class="navbar-brand" src="/correioIPO/public/img/ipo_logo_simple.png" with="50" height="50">
+                    <img class="navbar-brand" src="{{ url('img/ipo_logo_simple.png') }}" with="50" height="50">
                 </div>
             </div>
             <!-- /.navbar-header -->
