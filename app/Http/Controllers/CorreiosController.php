@@ -131,7 +131,7 @@ class CorreiosController extends Controller
             'recebido_em' => Carbon::now()
         ]);
 
-        $title = 'NOVA ' . strtoupper($tipo_movimento->descricao) . ' DE CORREIO ID -> ' .$idnovo;
+        $title = 'NOVA ' . strtoupper($tipo_movimento->descricao) . ' DE CORREIO ';
         $content = 'TESTE';
         $emails_to = ['8030083@gmail.com'];
 
@@ -321,7 +321,7 @@ class CorreiosController extends Controller
         ]);
 
         $user = Auth::user();
-        $title = 'NOVA ' . strtoupper($movimento) . ' Do CORREIO ID -> ' .$correio->id;
+        $title = 'REENVIO DE CORREIO - NOVA ' . strtoupper($movimento);
         $content = 'TESTE';
         $emails_to = ['8030083@gmail.com'];
 
