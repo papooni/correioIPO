@@ -162,7 +162,7 @@
     <div class="modal fade" id="editarUtilizador" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document" >
             <div class="modal-content">
-                <form class="form-horizontal" role="form" action="/correioIPO/public/utilizadores/editar" method="post">
+                <form class="form-horizontal" role="form" action="{{ url('utilizadores/editar') }}" method="post">
                     {{ csrf_field() }}
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -202,7 +202,7 @@
     <div class="modal fade" id="apagarUtilizador" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document" >
             <div class="modal-content">
-                <form class="form-horizontal" role="form" action="/correioIPO/public/utilizadores/apagar" action="post">
+                <form class="form-horizontal" role="form" action="{{ url('utilizadores/apagar') }}" action="post">
                     {{ csrf_field() }}
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -243,7 +243,7 @@
     <div class="modal fade" id="atribuirServico"  role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document" >
             <div class="modal-content">
-                <form class="form-horizontal" role="form" action="/correioIPO/public/utilizadores/atribuir_servico" action="get">
+                <form class="form-horizontal" role="form" action="{{ url('utilizadores/atribuir_servico') }}" method="get">
                     {{ csrf_field() }}
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -284,7 +284,7 @@
     <script src="/correioIPO/public/js/jquery-1.12.4.js"></script>
     --}}
 
-    <script src="/correioIPO/public/js/jquery-ui.js"></script>
+    <script src="{{ url('js/jquery-ui.js') }}"></script>
     <script src={{ asset("/js/select2.full.js")}}></script>
 
     <script>
