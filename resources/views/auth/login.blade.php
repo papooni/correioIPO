@@ -65,10 +65,10 @@
 
 
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-6 col-sm-12">
         <img src=" {{ asset("img/logo_ipo_cortado.png")  }}" class="animated fadeIn" style="position: absolute;top: -170px;left: 10px;" width="850" height="650">
     </div>
-    <div class="col-md-4">
+    <div class="col-md-4 col-sm-12">
         {{--<img src=" {{ asset("img/logo_horizontal_ipo.png")  }}" width="230px" height="70px" >--}}
         <div class="panel panel-default" style="border: rgba(196, 196, 196,0.37) solid 1px;border-radius: 10px; -webkit-box-shadow: 0px 0 50px #ccc;">
             <div class="panel-heading" style="font-size: 20px;font-weight: bold;"> Entrar
