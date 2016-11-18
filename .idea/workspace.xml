@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d9bf18b0-5fc8-4cde-99a5-bfbe44aa7f58" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/database.php" afterPath="$PROJECT_DIR$/config/database.php" />
-    </list>
+    <list default="true" id="d9bf18b0-5fc8-4cde-99a5-bfbe44aa7f58" name="Default" comment="" />
     <ignored path="correioIPO.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -427,12 +425,12 @@
       <workItem from="1479117587203" duration="43232000" />
       <workItem from="1479285502104" duration="25158000" />
       <workItem from="1479399310105" duration="418000" />
-      <workItem from="1479400810057" duration="2029000" />
+      <workItem from="1479400810057" duration="2128000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="260205000" />
+    <option name="totallyTimeSpent" value="260304000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
