@@ -146,19 +146,18 @@ class CorreiosController extends Controller
                                 <th rowspan="2" style="text-align: center;vertical-align: middle;">DATA</th>
                         </tr>
                         <tr style="text-align: center;">
-
                                 <th style="text-align: center;">Colaborador</th>
                                 <th style="text-align: center;">Serviço</th>
                                 <th style="text-align: center;">Colaborador</th>
                                 <th style="text-align: center;">Serviço</th>
                             </tr>
                         <tr>
-                            <td>{{$observacoes }} </td>
-                            <td>{{ $colaborador_origem}}</td>
-                            <td>{{$servico_origem }}</td>
-                            <td>{{$colaborador_destino }}</td>
-                            <td>{{$servico_destino }}</td>
-                            <td>{{ Carbon::now()}}</td>
+                            <td>'.$observacoes.'</td>
+                            <td>'.$colaborador_origem.'</td>
+                            <td>'.$servico_origem .'</td>
+                            <td>'.$colaborador_destino.'</td>
+                            <td>'.$servico_destino .'</td>
+                            <td>'. Carbon::now().'</td>
                         </tr>
                 </table>
                 </body>
