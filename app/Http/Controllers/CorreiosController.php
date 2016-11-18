@@ -19,10 +19,10 @@ use Illuminate\Support\Facades\Auth;
 class CorreiosController extends Controller
 {
 
-   /* public function __construct()
-    {
-        $this->middleware('auth:api');
-    }*/
+    /* public function __construct()
+     {
+         $this->middleware('auth:api');
+     }*/
 
     public function gravar(Request $request){
 
@@ -131,6 +131,7 @@ class CorreiosController extends Controller
             'recebido_em' => Carbon::now()
         ]);
 
+        $observacoes = $request->get('observacoes');
         $title = 'NOVA ' . strtoupper($tipo_movimento->descricao) . ' DE CORREIO ';
 
         $content =  '
@@ -143,15 +144,21 @@ class CorreiosController extends Controller
                                 <td colspan="2" style="text-align: center;font-weight: bold;">ORIGEM</td>
                                 <td colspan="2" style="text-align: center;font-weight: bold;">DESTINO</td>
                                 <th rowspan="2" style="text-align: center;vertical-align: middle;">DATA</th>
+                        </tr>
+                        <tr style="text-align: center;">
+
+                                <th style="text-align: center;">Colaborador</th>
+                                <th style="text-align: center;">Serviço</th>
+                                <th style="text-align: center;">Colaborador</th>
+                                <th style="text-align: center;">Serviço</th>
                             </tr>
                         <tr>
-                            <td>id</td>
-                            <td>assunto</td>
-                            <td>observacoes</td>
-                            <td>created_at</td>
-                            </td>
-                            <td>movimentos </td>
-                            <td>tipomovimentos_id </td> 
+                            <td>{{$observacoes }} </td>
+                            <td>{{ $colaborador_origem}}</td>
+                            <td>{{$servico_origem }}</td>
+                            <td>{{$colaborador_destino }}</td>
+                            <td>{{$servico_destino }}</td>
+                            <td>{{ Carbon::now()}}</td>
                         </tr>
                 </table>
                 </body>
@@ -166,13 +173,13 @@ class CorreiosController extends Controller
         $emails_to = ['8030083@gmail.com'];
 
 
-            //Enviar Email
+        //Enviar Email
         Mail::send(array('html' => 'emails.send'), ['title' => $title, 'content' => $content], function ($message) use ($user, $emails_to, $title) {
-             $message->from('app@mail.pt', 'Gestão Correio Interno IPO');
-             $message->to($emails_to);
-             //$message->attach($attach);
-             $message->subject($title);
-         });
+            $message->from('app@mail.pt', 'Gestão Correio Interno IPO');
+            $message->to($emails_to);
+            //$message->attach($attach);
+            $message->subject($title);
+        });
 
 
         return redirect('correios/index')->with('mensagem',$tipo_movimento->descricao . ' com o Nr. '.$idnovo .' de Correio Registada  '  );
@@ -357,11 +364,11 @@ class CorreiosController extends Controller
 
         //Enviar Email
         Mail::send(array('html' => 'emails.send'), ['title' => $title, 'content' => $content], function ($message) use ($user, $emails_to, $title) {
-             $message->from('app@mail.pt', 'Gestão Correio Interno IPO');
-             $message->to($emails_to);
-             //$message->attach($attach);
-             $message->subject($title);
-         });
+            $message->from('app@mail.pt', 'Gestão Correio Interno IPO');
+            $message->to($emails_to);
+            //$message->attach($attach);
+            $message->subject($title);
+        });
 
         return redirect('correios/index')->with('mensagem','Foi registado uma ' . $movimento  .  ' do Correio  ' .$correio->id );
 
