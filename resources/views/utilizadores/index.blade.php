@@ -138,7 +138,7 @@
                                     <td></td>
                                     <td></td>
                                     <td>
-                                        <button class="btn btn-success btn-sm btn-outline vu" data-toggle="modal" data-target="#apagarUtilizador" data-toggle="tooltip" title="Apagar"   data-id="{{ $utilizador->id }}" data-nome="{{ $utilizador->nome }}" data-email="{{ $utilizador->email }}" data-nr="{{ $utilizador->nr_mecanografico }}"  style="margin-top:-5px;">
+                                        <button class="btn btn-success btn-sm btn-outline vu" title="Apagar" style="margin-top:-5px;display:none;">
                                             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                         </button>
                                     </td>
