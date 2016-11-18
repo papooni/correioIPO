@@ -23,8 +23,6 @@
                     <form class="form-horizontal" role="form" method="POST" action='{{ url('/correios/reenvio_correio/'. $correio->id ) }}'>
                         {{ csrf_field() }}
 
-
-
                         <div class="row form-group" style="margin-top:20px;">
                             <label for="id" class="col-md-3 col-md-offset-1 control-label">ID </label>
                             <div class="col-md-2">
@@ -73,8 +71,6 @@
                                 </div>
                             </div>
 
-
-
                             <div class="form-group{{ $errors->has('colaborador_origem') ? ' has-error' : '' }}">
                                 <label for="colaborador_origem" class="col-md-4  col-md-offset-1 control-label">Colaborador
                                     Origem </label>
@@ -116,8 +112,6 @@
                                 </div>
                             </div>
 
-
-
                             <div class="form-group{{ $errors->has('colaborador_destino') ? ' has-error' : '' }}">
                                 <label for="colaborador_destino" class="col-md-4 control-label">Colaborador
                                     Destino </label>
@@ -138,7 +132,6 @@
 
                             </div>
 
-
                         </div>
 
                         @if ( $tipo == '1')
@@ -157,7 +150,6 @@
                             <div class="row  form-group">
                                 <label for="tipomovimento" class="col-md-3 col-md-offset-1 control-label">Tipo de
                                     Movimento </label>
-
                                 <div class="col-md-3">
                                     <input readonly id="tipomovimento" name="tipomovimento" class="form-control"
                                            value="Entrada">
