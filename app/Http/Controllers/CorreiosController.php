@@ -24,7 +24,6 @@ class CorreiosController extends Controller
         $this->middleware('auth:api');
     }*/
 
-
     public function gravar(Request $request){
 
         $this->validate($request, [
@@ -38,8 +37,8 @@ class CorreiosController extends Controller
         ]);
 
         $user = Auth::user();
-        $nome_user = $user->nome;
         $tipo_movimento = TipoMovimentos::find($request->get('tipomovimento'));//recebe o numero (id) é preciso verificar e ir buscar a descricao
+        $nome_user = $user->nome;
         $nome_movimento = $tipo_movimento->descricao;
         $colaborador_origem = $request->get('colaborador_origem');
         $servico_origem = $request->get('servico_origem');
@@ -132,15 +131,13 @@ class CorreiosController extends Controller
             'recebido_em' => Carbon::now()
         ]);
 
-        $user = Auth::user();
-        $nome_user = $user->nome;
-
         $title = 'NOVA ' . strtoupper($tipo_movimento->descricao) . ' DE CORREIO ID -> ' .$idnovo;
         $content = 'TESTE';
         $emails_to = ['8030083@gmail.com'];
 
-        //Enviar Email
-         Mail::send(array('html' => 'emails.send'), ['title' => $title, 'content' => $content], function ($message) use ($user, $emails_to, $title) {
+
+            //Enviar Email
+        Mail::send(array('html' => 'emails.send'), ['title' => $title, 'content' => $content], function ($message) use ($user, $emails_to, $title) {
              $message->from('app@mail.pt', 'Gestão Correio Interno IPO');
              $message->to($emails_to);
              //$message->attach($attach);
@@ -296,16 +293,8 @@ class CorreiosController extends Controller
         return view('correios/meu_correio')->with('correios',$correios);
     }
 
-    public function gravar_reenvio(Request $request){
-
-        $this->validate($request, [
-            'servico_origem' => 'required',
-            'colaborador_origem'  => 'required',
-            'servico_destino' => 'required',
-            'colaborador_destino' => 'required',
-            'observacoes' => 'required'
-        ]);
-
+    public function gravar_reenvio(Request $request)
+    {
         $correio = Correios::findOrFail($request->id);
         $ultimo_movimento = Movimentos::where('correios_id', $correio->id)->orderBy('created_at','desc')->first()->tipo_movimentos_id;
 
@@ -332,13 +321,12 @@ class CorreiosController extends Controller
         ]);
 
         $user = Auth::user();
-        $nome_user = $user->nome;
         $title = 'NOVA ' . strtoupper($movimento) . ' Do CORREIO ID -> ' .$correio->id;
         $content = 'TESTE';
         $emails_to = ['8030083@gmail.com'];
 
         //Enviar Email
-         Mail::send(array('html' => 'emails.send'), ['title' => $title, 'content' => $content], function ($message) use ($nome_user, $emails_to, $title) {
+        Mail::send(array('html' => 'emails.send'), ['title' => $title, 'content' => $content], function ($message) use ($user, $emails_to, $title) {
              $message->from('app@mail.pt', 'Gestão Correio Interno IPO');
              $message->to($emails_to);
              //$message->attach($attach);

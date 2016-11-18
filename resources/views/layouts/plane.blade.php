@@ -11,6 +11,7 @@
 	<meta content="width=device-width, initial-scale=1" name="viewport"/>
 	<meta content="" name="description"/>
 	<meta content="" name="author"/>
+	<link rel="shortcut icon" href="http://ipoporto.pt/wp-content/themes/IPO/ipoporto_ficon.png" />
 
 	<link rel="stylesheet" href="{{ asset("assets/stylesheets/styles.css") }}" />
 	<!--<link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">-->
