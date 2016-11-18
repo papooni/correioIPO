@@ -77,7 +77,7 @@
 
 
     <script src="assets/scripts/bootstrap-switch.js"></script>
-    <script src="/correioIPO/public/js/jquery-ui.js"></script>
+    <script src="{{ url('js/jquery-ui.js') }}"></script>
     <script>
         $(document).ready(function() {
 

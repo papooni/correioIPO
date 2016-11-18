@@ -46,7 +46,7 @@
         <div class="modal fade" id="Modalinserir" tabindex="-1" role="dialog" aria-labelledby="ModalinserirLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    <form class="form-horizontal" role="form" action="/correioIPO/public/tipo_movimentos/inserir" method="POST"  >
+                    <form class="form-horizontal" role="form" action="{{ url('tipo_movimentos/inserir') }}" method="POST"  >
                         {{ csrf_field() }}
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -76,7 +76,7 @@
         <div class="modal fade" id="Modaleditar" tabindex="-1" role="dialog" aria-labelledby="ModaleditarLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    <form action="/correioIPO/public/tipo_movimentos/editar" method="post">
+                    <form action="{{ url('tipo_movimentos/editar') }}" method="post">
                         {{ csrf_field() }}
 
                         <div class="modal-header">
@@ -116,7 +116,7 @@
         <div class="modal fade" id="Modalapagar" tabindex="-1" role="dialog" aria-labelledby="ModalapagarLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    <form action="/correioIPO/public/tipo_movimentos/apagar" method="get">
+                    <form action="{{ url('tipo_movimentos/apagar') }}" method="get">
                         {{ csrf_field() }}
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -153,7 +153,7 @@
     </div>
 
     {{--<script src="/correioIPO/public/js/jquery-1.12.4.js"></script>--}}
-    <script src="/correioIPO/public/js/jquery-ui.js"></script>
+    <script src="{{ url('js/jquery-ui.js') }}"></script>
 
     <script>
         $(document).ready(function() {

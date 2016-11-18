@@ -64,7 +64,7 @@
         </div>
     </div>
 
-    <script src="/correioIPO/public/js/jquery-ui.js"></script>
+    <script src="{{ url('js/jquery-ui.js') }}"></script>
     <script>
         $(document).ready(function(){
             $('[data-toggle="tooltip"]').tooltip();
