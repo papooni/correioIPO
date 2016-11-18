@@ -137,7 +137,6 @@ class CorreiosController extends Controller
         $content =  '
                 <html>
                 <body>
-                
                 <table style="margin-top:10px;">
                         <tr>
                                 <th rowspan="2" style="text-align: center;vertical-align: middle;">OBSERVAÇÕES</th>
