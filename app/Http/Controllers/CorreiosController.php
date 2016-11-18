@@ -132,7 +132,30 @@ class CorreiosController extends Controller
         ]);
 
         $title = 'NOVA ' . strtoupper($tipo_movimento->descricao) . ' DE CORREIO ';
-        $content = 'TESTE';
+
+        $content =  '<table class="table table-responsive table-striped table-hover" style="margin-top:10px;">
+                        <tr>
+                                <th rowspan="2" style="text-align: center;vertical-align: middle;">OBSERVAÇÕES</th>
+                                <td colspan="2" style="text-align: center;font-weight: bold;">ORIGEM</td>
+                                <td colspan="2" style="text-align: center;font-weight: bold;">DESTINO</td>
+                                <th rowspan="2" style="text-align: center;vertical-align: middle;">DATA</th>
+                            </tr>
+                        <tr>
+                            <td>id</td>
+                            <td>assunto</td>
+                            <td>observacoes</td>
+                            <td>created_at</td>
+                            </td>
+                            <td>movimentos </td>
+                            <td>tipomovimentos_id </td> 
+                        </tr>
+                </table>';
+
+
+
+
+
+
         $emails_to = ['8030083@gmail.com'];
 
 
