@@ -152,8 +152,8 @@ class CorreiosController extends Controller
                                 <th style="text-align: center;">Serviço</th>
                             </tr>
                         <tr>
-                            <td>'.$observacoes.'</td>
-                            <td>'.$colaborador_origem.'</td>
+                            <td>'. $observacoes.'</td>
+                            <td>'.User::find($colaborador_origem)->find->nome.'</td>
                             <td>'.$servico_origem .'</td>
                             <td>'.$colaborador_destino.'</td>
                             <td>'.$servico_destino .'</td>
