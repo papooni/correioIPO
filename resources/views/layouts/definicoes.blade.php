@@ -24,7 +24,7 @@
                         <div class="row">
                             <a href="administradores">
                                 <i class="fa fa-user-secret fa-5x" style="color: #2a88bd;"></i>
-                                <div>ADMINISTRADORES</div>
+                                <div>PERMISSÕES</div>
                             </a>
 
                         </div>

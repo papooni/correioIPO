@@ -1,5 +1,5 @@
 @extends('layouts.dashboard')
-@section('page_heading','Administradores')
+@section('page_heading','Permissão de Administrador')
 @section('section')
 
     <link href="assets/stylesheets/bootstrap-switch.css" rel="stylesheet">
@@ -27,6 +27,20 @@
             <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 tab-content teste-tab">
                 <!-- flight section -->
                 @foreach($users as $user)
+                    @if ($user->id == 1)
+                        <div class="tab-pane active">
+                            <center>
+                                <h4>ADMINISTRADOR</h4>
+                                <h5>
+                                    @if($user->admin)
+                                        <input type="checkbox" id="administrador" name="administrador" checked data-id="{{ $user->id }}">
+                                    @else
+                                        <input type="checkbox" id="administrador" name="administrador"  data-id="{{ $user->id }}">
+                                    @endif
+                                </h5>
+                            </center>
+                        </div>
+                    @endif
                     <div class="tab-pane">
                         <center>
                             <h4>ADMINISTRADOR</h4>
