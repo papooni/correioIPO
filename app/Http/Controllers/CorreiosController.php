@@ -137,8 +137,8 @@ class CorreiosController extends Controller
         $content =  '
                 <html>
                 <body>
-                <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
-                <table class="table table-responsive table-striped table-hover" style="margin-top:10px;">
+                
+                <table style="margin-top:10px;">
                         <tr>
                                 <th rowspan="2" style="text-align: center;vertical-align: middle;">OBSERVAÇÕES</th>
                                 <td colspan="2" style="text-align: center;font-weight: bold;">ORIGEM</td>
@@ -154,9 +154,9 @@ class CorreiosController extends Controller
                         <tr>
                             <td>'. $observacoes.'</td>
                             <td>'.User::find($colaborador_origem)->nome.'</td>
-                            <td>'.$servico_origem .'</td>
-                            <td>'.$colaborador_destino.'</td>
-                            <td>'.$servico_destino .'</td>
+                            <td>'.User::find($servico_origem)->nome .'</td>
+                            <td>'.User::find($colaborador_destino)->nome.'</td>
+                            <td>'.User::find($servico_destino)->nome .'</td>
                             <td>'. Carbon::now().'</td>
                         </tr>
                 </table>
