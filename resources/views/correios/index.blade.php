@@ -40,31 +40,40 @@
                     @foreach($correios as $correio)
                         {{--@if ($correio->lido == 0)--}}
                         @if( $correio->movimentos->first()->lido == 0)
-                        <tr style="font-weight: bold">
+                            <tr style="font-weight: bold">
                         @else
                             <tr style="font-weight: normal">
-                        @endif
+                                @endif
                                 <td>{{ $correio->id }}</td>
                                 <td>{{ $correio->assunto }}</td>
                                 <td>{{ $correio->observacoes }}</td>
                                 <td>{{ $correio->created_at }}</td>
-                               {{-- <td>{{$correio}}</td>
-                                <td>{{ $correio->movimentos }}</td>
-                                <td>{{ $correio->tipomovimentos_id }}</td>--}}
+                                {{-- <td>{{$correio}}</td>
+                                 <td>{{ $correio->movimentos }}</td>
+                                 <td>{{ $correio->tipomovimentos_id }}</td>--}}
                                 {{--<td>{{ $correio->movimentos->tipomovimento  }}</td>--}}
-                               {{--<td>{{ $correio->tipomovimento($correio->tipomovimentos_id) }}</td>--}}
+                                {{--<td>{{ $correio->tipomovimento($correio->tipomovimentos_id) }}</td>--}}
                                 <td>
+                                    @if (Auth::user()->admin)
+                                        <a href="{{ url('/correios/apagar/'.  $correio->id) }}"
+                                           style="margin-left:5px;" class="btn btn-sm btn-danger btn-outline pull-right" data-toggle="tooltip"  title="Ver Correio!">
+                                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                        </a>
+                                    @endif
                                     <a href="{{ url('/correios/reenvio/'.  $correio->id ) }}"
                                        class="btn btn-sm btn-success btn-outline pull-right" data-toggle="tooltip" data-placement="top" title="Reenviar!">
                                         <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
                                     </a>
+
                                     <a href="{{ url('/correios/detalhes/'.  $correio->id) }}"
                                        style="margin-right:5px;" class="btn btn-sm btn-info btn-outline pull-right" data-toggle="tooltip"  title="Ver Correio!">
                                         <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
                                     </a>
+
+
                                 </td>
                             </tr>
-                    @endforeach
+                            @endforeach
                 </table>
                 <div class="pull-right">
                     @if( count($correios) >= 1)

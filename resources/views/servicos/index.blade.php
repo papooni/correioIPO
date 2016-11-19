@@ -5,13 +5,13 @@
     <link rel="stylesheet" href="{{ url('css/animate.css') }}">
     @if (session('mensagem'))
         <div class="alert alert-success animated fadeIn">
-        {{ session('mensagem') }}
-       {{-- @include('widgets.alert', array('class'=>'success col-md-8', 'dismissable'=>true, 'message'=>  session('novo') , 'icon'=> 'check'))--}}
-         </div>
+            {{ session('mensagem') }}
+            {{-- @include('widgets.alert', array('class'=>'success col-md-8', 'dismissable'=>true, 'message'=>  session('novo') , 'icon'=> 'check'))--}}
+        </div>
     @endif
 
     <div class="row">
-        <div class="col-md-4 pull-right">
+        <div class="col-md-7 col-md-offset-5">
             {!!  Form::open(array('url' => "/servicos/pesquisa", 'class' => 'navbar-form navbar-left', 'method' => 'GET')) !!}
             {!!  Form::text('pesquisa_servico',$value = null, array('placeholder' => 'Pesquisar', 'id' => 'pesquisa_servico', 'class' => 'form-control')) !!}
             {!!  Form::button('<i class="fa fa-search"></i>', array('class' => 'btn btn-default','type' => 'submit')) !!}
@@ -19,8 +19,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-
+        <div class="col-md-6 col-md-offset-2">
             <table class="table table-responsive table-striped ">
                 <tr>
                     <th>ID</th>
@@ -44,7 +43,7 @@
 
                         <td>
                             <button type="button" class="btn btn-primary btn-outline btn-sm pull-right" style="margin-left: 5px;" data-toggle="modal"
-                                     data-target="#Modalapagar" data-id="{{ $servico->id }}" data-nome="{{$servico->nome}}" >
+                                    data-target="#Modalapagar" data-id="{{ $servico->id }}" data-nome="{{$servico->nome}}" >
                                 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                             </button>
                             <button type="button" class="btn btn-success btn-outline btn-sm pull-right" data-toggle="modal"
@@ -140,7 +139,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <form action="{{ url('servicos/apagar') }}" method="post" >
-                  {{--  {{ method_field('PATCH') }} {{ csrf_token() }}--}}
+                    {{--  {{ method_field('PATCH') }} {{ csrf_token() }}--}}
                     {{ csrf_field() }}
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -180,7 +179,7 @@
 
     <script>
         $(document).ready(function () {
-           $('input:text').bind({
+            $('input:text').bind({
             });
             $( "#pesquisa_servico" ).autocomplete({
                 minLength:1,

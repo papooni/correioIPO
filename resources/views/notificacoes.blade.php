@@ -25,6 +25,17 @@
     </style>
 
     <div class="row">
+
+        <div class="col-md-5 col-md-offset-6">
+            {!!  Form::open(array('url' => "/utilizadores/pesquisa", 'class' => 'navbar-form navbar-left', 'method' => 'GET')) !!}
+            {!!  Form::text('pesquisa_utilizador',$value = null, array('placeholder' => 'Pesquisar', 'id' => 'pesquisa_utilizador', 'class' => 'form-control')) !!}
+            {!!  Form::button('<i class="fa fa-search"></i>', array('class' => 'btn btn-default','type' => 'submit')) !!}
+            {!!  Form::close() !!}
+        </div>
+    </div>
+
+
+    <div class="row" style="margin-top:20px;">
         <div class=" teste-tab-container">
             <div class="col-md-offset-2 col-lg-3 col-md-3 col-sm-3 col-xs-3 teste">
                 <div class="list-group">
