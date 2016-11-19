@@ -138,25 +138,25 @@ class CorreiosController extends Controller
                 <html>
                 <body>
                 <table style="margin-top:10px;border: 1px solid black;">
-                        <tr>
-                                <th rowspan="2" style="text-align: center;vertical-align: middle;">OBSERVAÇÕES</th>
-                                <td colspan="2" style="text-align: center;font-weight: bold;">ORIGEM</td>
-                                <td colspan="2" style="text-align: center;font-weight: bold;">DESTINO</td>
-                                <th rowspan="2" style="text-align: center;vertical-align: middle;">DATA</th>
+                        <tr style="border: 1px solid black;">
+                                <th rowspan="2" style="text-align: center;vertical-align: middle;border: 1px solid black;">OBSERVAÇÕES</th>
+                                <td colspan="2" style="text-align: center;font-weight: bold;border: 1px solid black;">ORIGEM</td>
+                                <td colspan="2" style="text-align: center;font-weight: bold;border: 1px solid black;">DESTINO</td>
+                                <th rowspan="2" style="text-align: center;vertical-align: middle;border: 1px solid black;">DATA</th>
                         </tr>
-                        <tr style="text-align: center;">
-                                <th style="text-align: center;">Colaborador</th>
-                                <th style="text-align: center;">Serviço</th>
-                                <th style="text-align: center;">Colaborador</th>
-                                <th style="text-align: center;">Serviço</th>
+                        <tr style="text-align: center;border: 1px solid black;">
+                                <th style="text-align: center;border: 1px solid black;">Colaborador</th>
+                                <th style="text-align: center;border: 1px solid black;">Serviço</th>
+                                <th style="text-align: center;border: 1px solid black;">Colaborador</th>
+                                <th style="text-align: center;border: 1px solid black;">Serviço</th>
                             </tr>
-                        <tr>
-                            <td>'. $observacoes.'</td>
-                            <td>'.User::find($colaborador_origem)->nome.'</td>
-                            <td>'.User::find($servico_origem)->nome .'</td>
-                            <td>'.User::find($colaborador_destino)->nome.'</td>
-                            <td>'.User::find($servico_destino)->nome .'</td>
-                            <td>'. Carbon::now().'</td>
+                        <tr style="text-align: center;border: 1px solid black;">
+                            <td style="text-align: center;border: 1px solid black;">'. $observacoes.'</td>
+                            <td style="text-align: center;border: 1px solid black;">'.User::find($colaborador_origem)->nome.'</td>
+                            <td style="text-align: center;border: 1px solid black;">'.User::find($servico_origem)->nome .'</td>
+                            <td style="text-align: center;border: 1px solid black;">'.User::find($colaborador_destino)->nome.'</td>
+                            <td style="text-align: center;border: 1px solid black;">'.User::find($servico_destino)->nome .'</td>
+                            <td style="text-align: center;border: 1px solid black;">'. Carbon::now().'</td>
                         </tr>
                 </table>
                 </body>
