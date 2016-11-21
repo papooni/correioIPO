@@ -63,7 +63,7 @@ Route::any('/utilizadores/getdatautilizador', function () {
         ->select('id', 'nome')
         ->where('id', '=', $term)
         ->orWhere('nome', 'like', '%' . $term . '%')
-        ->where('id','!=',Auth::id())
+        //->where('id','!=',Auth::id())
         ->where('ativo',1)
         ->take(10)
         ->get();

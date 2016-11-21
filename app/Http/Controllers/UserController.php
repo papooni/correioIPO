@@ -18,15 +18,16 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 class UserController extends Controller
 {
 
-   /* public function __construct()
-    {
-        $this->middleware('auth:api');
-    }*/
+    /* public function __construct()
+     {
+         $this->middleware('auth:api');
+     }*/
 
     public function index(){
-            return view('utilizadores/index')
-                ->with('servicos_utilizador',UtilizadorServicos::paginate(10))
-                ->with('utilizadores',User::where('id','!=',Auth::id())->where('ativo',1)->paginate(10))->with('titulo','Utilizadores');
+        return view('utilizadores/index')
+            ->with('servicos_utilizador',UtilizadorServicos::paginate(10))
+            ->with('utilizadores',User::where('id','!=',Auth::id())->where('ativo',1)->paginate(10))
+            ->with('titulo','Utilizadores');
     }
 
     public function extra(){
@@ -76,29 +77,22 @@ class UserController extends Controller
     }
 
     public function pesquisa(Request $request){
-
         if (!empty($request->pesquisa_utilizador)  ){
             $id_utilizador = explode("-",$request->pesquisa_utilizador);
-            $id_utilizador = str_replace(" ","", $id_utilizador[0]);
-            try{
-                $utilizadores = User::findOrFail($id_utilizador);
-                return redirect('utilizadores/index')->with('utilizadores',$utilizadores)->with('titulo','Pesquisa Utilizadores 5');
-            }
-            catch(ModelNotFoundException $ex){
-                return Redirect::to('utilizadores/index')
-                    ->with('utilizadores',User::where('id','!=',Auth::id())->where('ativo',1))
-                    ->with('erro',$ex)
-                    ->with('titulo','Pesquisa Utilizadores erro');
-            }
-            //return view('utilizadores/index')->with('utilizadores',$utilizadores)->with('titulo','Pesquisa Utilizadores');
+            $id_utilizador = str_replace(" ","", $id_utilizador);
+            $utilizadores = User::find($id_utilizador);
+
+            return view('utilizadores/index')
+                ->with('servicos_utilizador',UtilizadorServicos::paginate(10))
+                ->with('utilizadores',$utilizadores)
+                ->with('titulo','Pesquisa Utilizadores 5');
         }else{
-           $utilizadores = User::where('id','!=',Auth::id())->where('ativo',1)->paginate(10);
-           return redirect('utilizadores/index')
-               ->with('utilizadores',$utilizadores)
-               ->with('titulo','Pesquisa Utilizadores')
-               ->with('erro','Erro de Pesquisa');
+            $utilizadores = User::where('id','!=',Auth::id())->where('ativo',1)->paginate(10);
+            return redirect('utilizadores/index')
+                ->with('utilizadores',$utilizadores)
+                ->with('titulo','Pesquisa Utilizadores')
+                ->with('erro','Erro de Pesquisa');
         }
-        //return redirect('utilizadores/index')->with('utilizadores',$utilizadores);
     }
 
     public function definicoes(Request $request){
@@ -161,7 +155,7 @@ class UserController extends Controller
             if($estado == false){
                 $user->notificacoes = false;
             }
-           $mensagem = 'Estado Diferente';
+            $mensagem = 'Estado Diferente';
         }
         else{
             $mensagem = 'Estado Igual';
@@ -194,7 +188,7 @@ class UserController extends Controller
         else{
             $mensagem = 'Estado Igual';
         }
-               $user->admin = $estado;
+        $user->admin = $estado;
         $user->save();
         $data = ['MENSAGEM',$mensagem,'ID USER -> '. $user_id,'ESTADO INICIAL - > '.$estado_inicial,'ESTADO FINAL -> '.$estado];
         return Response::json($data);
