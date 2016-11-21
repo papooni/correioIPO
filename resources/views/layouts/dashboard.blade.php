@@ -13,7 +13,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 <div>
-                    <a class="navbar-brand" href="{{ url ('/home') }}">Gestão de Correio | IPO</a>
+                    <a class="navbar-brand" href="{{ url ('/home') }}">Gestão de Correio Interno | IPO</a>
                     <img class="navbar-brand" src="{{ url('img/ipo_logo_simple.png') }}" with="50" height="50">
                 </div>
             </div>

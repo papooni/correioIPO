@@ -81,9 +81,10 @@
                 <img src="img/envelope_ipo.png" class="animated fadeIn"  width="300" height="300" >
             </a>
         </div>
-
+        <div style="font-size: 30px;text-shadow: 1px 5px rgba(128, 128, 128, 0.28);">
+            Serviço de Informática<br>
+        </div>
         <div class="sectitle m-b-md">
-            Informática<br>
             Gestão de Correio Interno
         </div>
     </div>
