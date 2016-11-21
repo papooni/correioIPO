@@ -56,7 +56,7 @@
                                 <td>
                                     @if (Auth::user()->admin)
                                         <a href="{{ url('/correios/apagar/'.  $correio->id) }}"
-                                           style="margin-left:5px;" class="btn btn-sm btn-danger btn-outline pull-right" data-toggle="tooltip"  title="Ver Correio!">
+                                           style="margin-left:5px;" class="btn btn-sm btn-danger btn-outline pull-right" data-toggle="tooltip"  title="Apagar Correio!">
                                             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                         </a>
                                     @endif
