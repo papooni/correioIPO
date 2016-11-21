@@ -7,11 +7,13 @@ use App\User;
 use App\UtilizadorServicos;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\Rule;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Response;
 use Auth;
 use Illuminate\Support\Facades\View;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class UserController extends Controller
 {
@@ -77,12 +79,24 @@ class UserController extends Controller
 
         if (!empty($request->pesquisa_utilizador)  ){
             $id_utilizador = explode("-",$request->pesquisa_utilizador);
-            $id_utilizador = str_replace(" ","", $id_utilizador);
-            $utilizadores = User::find($id_utilizador);
-            return view('utilizadores/index')->with('utilizadores',$utilizadores)->with('titulo','Pesquisa Utilizadores');
+            $id_utilizador = str_replace(" ","", $id_utilizador[0]);
+            try{
+                $utilizadores = User::findOrFail($id_utilizador);
+                return redirect('utilizadores/index')->with('utilizadores',$utilizadores)->with('titulo','Pesquisa Utilizadores 5');
+            }
+            catch(ModelNotFoundException $ex){
+                return Redirect::to('utilizadores/index')
+                    ->with('utilizadores',User::where('id','!=',Auth::id())->where('ativo',1))
+                    ->with('erro',$ex)
+                    ->with('titulo','Pesquisa Utilizadores erro');
+            }
+            //return view('utilizadores/index')->with('utilizadores',$utilizadores)->with('titulo','Pesquisa Utilizadores');
         }else{
-           $utilizadores = User::paginate(10);
-           return view('utilizadores/index')->with('utilizadores',$utilizadores)->with('titulo','Pesquisa Utilizadores');
+           $utilizadores = User::where('id','!=',Auth::id())->where('ativo',1)->paginate(10);
+           return redirect('utilizadores/index')
+               ->with('utilizadores',$utilizadores)
+               ->with('titulo','Pesquisa Utilizadores')
+               ->with('erro','Erro de Pesquisa');
         }
         //return redirect('utilizadores/index')->with('utilizadores',$utilizadores);
     }

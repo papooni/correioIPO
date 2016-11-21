@@ -10,7 +10,7 @@
 
     <div class="row">
         <div class="col-md-4 pull-right">
-            {!!  Form::open(array('url' => "/correio/procura", 'class' => 'navbar-form navbar-left', 'method' => 'GET')) !!}
+            {!!  Form::open(array('url' => "/correios/pesquisa", 'class' => 'navbar-form navbar-left', 'method' => 'GET')) !!}
             {!!  Form::text('pesquisa_correio',$value = null, array('placeholder' => 'Pesquisar', 'id' => 'pesquisa_correio', 'class' => 'form-control')) !!}
             {!!  Form::button('<i class="fa fa-search"></i>', array('class' => 'btn btn-default','type' => 'submit')) !!}
             {!!  Form::close() !!}
@@ -19,9 +19,7 @@
 
     <div class="col-md-10 col-md-offset-1">
         <div class="row">
-
             @if (count($correios) === 0)
-
                 <div class="col-md-offset-2">
                     <h2>De momento não existe Correio Registado! </h2>
                 </div>
@@ -33,10 +31,8 @@
                         <th>Observações</th>
                         <th>Data</th>
                         {{--<th>Movimento</th>--}}
-
                         <th></th>
                     </tr>
-
                     @foreach($correios as $correio)
                         {{--@if ($correio->lido == 0)--}}
                         @if( $correio->movimentos->first()->lido == 0)
@@ -65,27 +61,22 @@
                                        class="btn btn-sm btn-success btn-outline pull-right tool"  title="Reenviar!">
                                         <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
                                     </a>
-
                                     <a href="{{ url('/correios/detalhes/'.  $correio->id) }}"
                                        style="margin-right:5px;" class="btn btn-sm btn-info btn-outline pull-right tool" title="Ver Correio!">
                                         <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
                                     </a>
-
-
                                 </td>
                             </tr>
                             @endforeach
                 </table>
                 <div class="pull-right">
-                    @if( count($correios) >= 1)
+                    @if( count($correios) > 1)
                         {{ $correios->links() }}
                     @endif
                 </div>
             @endif
         </div>
     </div>
-
-
     <div class="modal fade" id="Modalapagar" tabindex="-1" role="dialog" aria-labelledby="ModalapagarLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -123,12 +114,6 @@
             </div>
         </div>
     </div>
-
-
-
-
-
-
 
     <script src="{{ url('js/jquery-ui.js') }}"></script>
 

@@ -406,4 +406,19 @@ class CorreiosController extends Controller
         ));
 
     }
+
+    public function pesquisa(Request $request){
+
+        if (!empty($request->pesquisa_correio)  ){
+            $id_correio = explode("-",$request->pesquisa_correio);
+            $id_correio = str_replace(" ","", $id_correio[0]);
+            $correios = Correios::findOrFail($id_correio);
+            return redirect('/correios/detalhes/'.  $id_correio)->with('correios',$correios)->with('titulo','Pesquisa Correio');
+        }else{
+            $correios = Correios::orderBy('created_at','desc')->paginate(10);
+            return view('correios/index')->with('correios',$correios)->with('titulo','Pesquisa Correio');
+        }
+        //return redirect('utilizadores/index')->with('utilizadores',$utilizadores);
+    }
+
 }

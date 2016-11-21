@@ -65,9 +65,6 @@
         </div>
     </div>
 
-
-
-
     <div class="modal fade" id="Modalinserir" tabindex="-1" role="dialog" aria-labelledby="ModalinserirLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -173,7 +170,6 @@
         </div>
     </div>
 
-
     <script src={{ asset("/js/jquery-ui.js") }}></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
 
@@ -188,6 +184,7 @@
             });
         });
     </script>
+
     <script>
         $(document).ready(function() {
             $('#Modaleditar').on('show.bs.modal', function (e) {
@@ -199,7 +196,6 @@
                 modal.find('.modal-body input[name=id]').val(id)
                 modal.find('.modal-body input[name=nome]').val(nome);
             });
-
 
             $('#Modalapagar').on('show.bs.modal', function (e) {
                 console.log( "ready!modalapagar" );

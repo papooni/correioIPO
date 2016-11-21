@@ -3,14 +3,15 @@
 @section('section')
     <link rel="stylesheet" href={{ asset("css/select2.css")}}>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="{{ url('css/animate.css') }}">
     @if (session('mensagem'))
-        <div class="alert alert-success">
+        <div class="alert alert-success col-md-4 fadeInDown text-center" style="position: absolute;">
             {{ session('mensagem') }}
         </div>
     @endif
 
     @if (session('erro'))
-        <div class="alert alert-danger">
+        <div class="alert alert-danger col-md-2 col-md-offset-3 animated fadeInDown text-center" style="position: absolute; padding: 10px;">
             {{ session('erro') }}
         </div>
     @endif
