@@ -56,12 +56,13 @@
                                 <td>
                                     @if (Auth::user()->admin)
                                         <a href="{{ url('/correios/apagar/'.  $correio->id) }}"
-                                           style="margin-left:5px;" class="btn btn-sm btn-danger btn-outline pull-right" data-toggle="tooltip"  title="Apagar Correio!">
+                                           style="margin-left:5px;" class="btn btn-sm btn-danger btn-outline pull-right" data-toggle="tooltip" data-toggle="modal"
+                                           data-target="#Modalapagar" data-id="{{ $correio->id }}" data-nome="{{$correio->nome}}"  title="Apagar Correio!">
                                             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                         </a>
                                     @endif
                                     <a href="{{ url('/correios/reenvio/'.  $correio->id ) }}"
-                                       class="btn btn-sm btn-success btn-outline pull-right" data-toggle="tooltip" data-placement="top" title="Reenviar!">
+                                       class="btn btn-sm btn-success btn-outline pull-right" data-toggle="tooltip" title="Reenviar!">
                                         <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
                                     </a>
 
@@ -83,6 +84,51 @@
             @endif
         </div>
     </div>
+
+
+    <div class="modal fade" id="Modalapagar" tabindex="-1" role="dialog" aria-labelledby="ModalapagarLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form action="{{ url('servicos/apagar') }}" method="post" >
+                    {{--  {{ method_field('PATCH') }} {{ csrf_token() }}--}}
+                    {{ csrf_field() }}
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="ModalapagarLabel">APAGAR CORREIO</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-3 col-md-offset-2">
+                                <label for="id" class="control-label">ID </label>
+                            </div>
+                            <div class="col-md-2">
+                                <input id="id"  class="form-control" type="text" readonly="true" name="id" value="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3  col-md-offset-2">
+                                <label for="nome" class="control-label">Assunto </label>
+                            </div>
+                            <div class="col-md-6">
+                                <input id="nome" readonly="true" class="form-control" type="text" name="nome" value="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-danger">Apagar</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
 
     <script src="{{ url('js/jquery-ui.js') }}"></script>
 
