@@ -56,18 +56,18 @@
                                 <td>
                                     @if (Auth::user()->admin)
                                         <a href="{{ url('/correios/apagar/'.  $correio->id) }}"
-                                           style="margin-left:5px;" class="btn btn-sm btn-danger btn-outline pull-right" data-toggle="tooltip" data-toggle="modal"
-                                           data-target="#Modalapagar" data-id="{{ $correio->id }}" data-nome="{{$correio->nome}}"  title="Apagar Correio!">
+                                           style="margin-left:5px;" class="btn btn-sm btn-danger btn-outline pull-right tool"  data-toggle="modal"
+                                           data-target="#Modalapagar" data-id="{{ $correio->id }}" data-assunto="{{$correio->assunto}}"  title="Apagar Correio!">
                                             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                         </a>
                                     @endif
                                     <a href="{{ url('/correios/reenvio/'.  $correio->id ) }}"
-                                       class="btn btn-sm btn-success btn-outline pull-right" data-toggle="tooltip" title="Reenviar!">
+                                       class="btn btn-sm btn-success btn-outline pull-right tool"  title="Reenviar!">
                                         <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
                                     </a>
 
                                     <a href="{{ url('/correios/detalhes/'.  $correio->id) }}"
-                                       style="margin-right:5px;" class="btn btn-sm btn-info btn-outline pull-right" data-toggle="tooltip"  title="Ver Correio!">
+                                       style="margin-right:5px;" class="btn btn-sm btn-info btn-outline pull-right tool" title="Ver Correio!">
                                         <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
                                     </a>
 
@@ -108,10 +108,10 @@
                         </div>
                         <div class="row">
                             <div class="col-md-3  col-md-offset-2">
-                                <label for="nome" class="control-label">Assunto </label>
+                                <label for="assunto" class="control-label">Assunto </label>
                             </div>
                             <div class="col-md-6">
-                                <input id="nome" readonly="true" class="form-control" type="text" name="nome" value="">
+                                <input id="assunto" readonly="true" class="form-control" type="text" name="assunto" value="">
                             </div>
                         </div>
                     </div>
@@ -147,7 +147,16 @@
 
     <script>
         $(document).ready(function(){
-            $('[data-toggle="tooltip"]').tooltip();
+            $('.tool').tooltip();
+            $('#Modalapagar').on('show.bs.modal', function (e) {
+                console.log( "ready!modalapagar" );
+                var id = $(e.relatedTarget).data('id'); // Button that triggered the modal
+                var assunto = $(e.relatedTarget).data('assunto');
+                var modal = $(this)
+                //modal.find('.modal-title').text('EDITAR' + ' - ' + id)
+                modal.find('.modal-body input[name=id]').val(id)
+                modal.find('.modal-body input[name=assunto]').val(assunto);
+            });
         });
     </script>
 @stop
