@@ -1,9 +1,14 @@
 @extends('layouts.dashboard')
 @section('page_heading','Dashboard')
 @section('section')
+    <style>
 
+    </style>
+
+
+    <link rel="stylesheet" href="{{ url('css/animate.css') }}">
     @if (session('novo'))
-        <div class="alert alert-success">
+        <div id="mensagem" class="alert alert-success col-md-6 col-md-offset-3 fadeInDown animated text-center option">
             {{ session('novo') }}
         </div>
     @endif
@@ -151,6 +156,13 @@
         @endif
 
     </div>
-
+    <script src="{{ url('js/jquery-ui.js') }}"></script>
+    <script>
+        $(function() {
+            setTimeout(function() {
+                $("#mensagem").hide('blind', {}, 500)
+            }, 5000);
+        });
+    </script>
 @stop
 

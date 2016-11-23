@@ -5,19 +5,18 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="{{ url('css/animate.css') }}">
     @if (session('mensagem'))
-        <div class="alert alert-success col-md-4 fadeInDown text-center" style="position: absolute;">
+        <div class="alert alert-success col-md-5 fadeInDown animated text-center" style="position: absolute;padding:10px;">
             {{ session('mensagem') }}
         </div>
     @endif
 
     @if (session('erro'))
-        <div class="alert alert-danger col-md-2 col-md-offset-3 animated fadeInDown text-center" style="position: absolute; padding: 10px;">
+        <div class="alert alert-danger col-md-3 col-md-offset-2 animated fadeInDown text-center" style="position: absolute; padding: 10px;">
             {{ session('erro') }}
         </div>
     @endif
 
     <div class="row">
-
         <div class="col-md-5 col-md-offset-7">
             {!!  Form::open(array('url' => "/utilizadores/pesquisa", 'class' => 'navbar-form navbar-left', 'method' => 'GET')) !!}
             {!!  Form::text('pesquisa_utilizador',$value = null, array('placeholder' => 'Pesquisar', 'id' => 'pesquisa_utilizador', 'class' => 'form-control')) !!}
@@ -60,7 +59,7 @@
                             <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
                         </button>
                         @if(Auth::user()->admin == 1)
-                            <button class="btn btn-primary btn-sm btn-outline vu"  data-toggle="modal" data-target="#editarUtilizador" data-toggle="tooltip" title="Editar"   data-id="{{ $utilizador->id }}" data-nome="{{ $utilizador->nome }}" data-email="{{ $utilizador->email }}" data-nr="{{ $utilizador->nr_mecanografico }}"  style="margin-top:-5px;">
+                            <button class="btn btn-primary btn-sm btn-outline vu"  data-toggle="modal" data-target="#editarUtilizador" data-toggle="tooltip" title="Editar"   data-id="{{ $utilizador->id }}" data-nome="{{ $utilizador->nome }}" data-email="{{ $utilizador->email }}" data-nr="{{ $utilizador->nr_mecanografico }}" data-interno="{{ $utilizador->ativo}}"  style="margin-top:-5px;">
                                 <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                             </button>
                             <button class="btn btn-success btn-sm btn-outline vu" data-toggle="modal" data-target="#apagarUtilizador" data-toggle="tooltip" title="Apagar"   data-id="{{ $utilizador->id }}" data-nome="{{ $utilizador->nome }}" data-email="{{ $utilizador->email }}" data-nr="{{ $utilizador->nr_mecanografico }}"  style="margin-top:-5px;">
@@ -100,13 +99,10 @@
                     </ul>
                     <div id="tabs" class="tab-content">
                         <div role="tabpanel" class="tab-pane active" id="dados">
-
-
                             <div class="form-group">
                                 <label class="col-xs-4 control-label ">ID:</label>
                                 <div class="col-xs-5">
                                     <input type="text" class="form-control" id="mid" name="mid" readonly value="">
-
                                 </div>
                             </div>
                             <div class="form-group">
@@ -143,10 +139,7 @@
                                             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                         </button>
                                     </td>
-
                                 </tr>
-
-
                             </table>
                         </div>
                     </div>
@@ -189,6 +182,14 @@
                                 <input type="text" class="form-control" id="mnr" name="mnr" value="">
                             </div>
                         </div>
+
+                        <div class="form-group">
+                            <label for="interno" class="col-md-4 control-label">Tornar Interno</label>
+                            <div class="col-md-2">
+                                <input name="interno" id="interno" type="checkbox"  style="margin-top:10px;" >
+                            </div>
+                        </div>
+
                         <input type="hidden" class="form-control" id="mid" name="mid" value="">
                     </div>
                     <div class="modal-footer">
@@ -257,7 +258,8 @@
                             <div class="col-md-4">
                                 <select id="servico" name="servico" style="width:200px;" class="select_servico_associado" >
                                     <option></option>
-                                    {{ $servicos = \App\Servicos::all() }}
+                                    {{--{{ $servicos = \App\Servicos::all() }}--}}
+                                    {{ $servicos = \App\Servicos::all()}}
                                     @foreach($servicos as $servico)
                                         <option value="{{ $servico->id }}" {!!  (old('servico')) == $servico->id ? "selected":"" !!}>{{ $servico->nome }}</option>
                                     @endforeach
@@ -269,7 +271,6 @@
                                 @endif
                             </div>
                         </div>
-
                         <input type="hidden" class="form-control" id="mid" name="mid" value="">
                     </div>
                     <div class="modal-footer">
@@ -289,33 +290,30 @@
     <script src={{ asset("/js/select2.full.js")}}></script>
 
     <script>
-
         $(document).on("click", ".vu", function () {
             var id = $(this).data('id');
             var nome = $(this).data('nome');
             var email = $(this).data('email');
             var nr = $(this).data('nr');
+            var interno = $(this).data('interno');
 
             $(".modal-body #mid").val( id );
             $(".modal-body #mnome").val( nome );
             $(".modal-body #memail").val( email );
+            $(".modal-body #interno")[0].checked = interno;
+            //$(".modal-body #interno").prop('checked', interno) ;
             $(".modal-body #mnr").val( nr );
         });
-
         $(document).ready(function () {
-
             //PESQUISA
             $('input:text').bind({
             });
-
             $( "#pesquisa_utilizador" ).autocomplete({
                 minLength:1,
                 autoFocus: true,
                 source: '{{URL('/utilizadores/getdatautilizador')}}',
             });
-
             $('[data-toggle="tooltip"]').tooltip();
-
             $('#verUtilizador').on('shown.bs.modal', function(event){
                 $("#servicos").removeClass("active");
                 $("#dados").addClass("active");
@@ -334,12 +332,9 @@
                      </button>*/
                 });
             });
-
             $(".select_servico_associado").select2({
                 placeholder: "Escolha o Serviço:",
             });
-
         });
-
     </script>
 @stop

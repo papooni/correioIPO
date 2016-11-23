@@ -1,9 +1,9 @@
 @extends('layouts.dashboard')
 @section('page_heading','Correios')
 @section('section')
-
+    <link rel="stylesheet" href="{{ url('css/animate.css') }}">
     @if (session('mensagem'))
-        <div class="alert alert-success">
+        <div class="alert alert-success col-md-5 fadeInDown animated text-center">
             {{ session('mensagem') }}
         </div>
     @endif
@@ -53,7 +53,7 @@
                                     @if (Auth::user()->admin)
                                         <a href="{{ url('/correios/apagar/'.  $correio->id) }}"
                                            style="margin-left:5px;" class="btn btn-sm btn-danger btn-outline pull-right tool"  data-toggle="modal"
-                                           data-target="#Modalapagar" data-id="{{ $correio->id }}" data-assunto="{{$correio->assunto}}"  title="Apagar Correio!">
+                                           data-target="#Modalapagar" data-id="{{ $correio->id }}" data-assunto="{{$correio->assunto}}" data-observacoes="{{ $correio->observacoes }}"  title="Apagar Correio!">
                                             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                         </a>
                                     @endif
@@ -77,10 +77,11 @@
             @endif
         </div>
     </div>
+
     <div class="modal fade" id="Modalapagar" tabindex="-1" role="dialog" aria-labelledby="ModalapagarLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <form action="{{ url('servicos/apagar') }}" method="post" >
+                <form action="{{ url('correios/apagar') }}" method="post" >
                     {{--  {{ method_field('PATCH') }} {{ csrf_token() }}--}}
                     {{ csrf_field() }}
                     <div class="modal-header">
@@ -103,6 +104,14 @@
                             </div>
                             <div class="col-md-6">
                                 <input id="assunto" readonly="true" class="form-control" type="text" name="assunto" value="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3  col-md-offset-2">
+                                <label for="observacoes" class="control-label">Observacoes </label>
+                            </div>
+                            <div class="col-md-6">
+                                <input id="observacoes" readonly="true" class="form-control" type="text" name="observacoes" value="">
                             </div>
                         </div>
                     </div>
@@ -137,10 +146,14 @@
                 console.log( "ready!modalapagar" );
                 var id = $(e.relatedTarget).data('id'); // Button that triggered the modal
                 var assunto = $(e.relatedTarget).data('assunto');
+                var observacoes = $(e.relatedTarget).data('observacoes');
+
                 var modal = $(this)
                 //modal.find('.modal-title').text('EDITAR' + ' - ' + id)
                 modal.find('.modal-body input[name=id]').val(id)
                 modal.find('.modal-body input[name=assunto]').val(assunto);
+                modal.find('.modal-body input[name=observacoes]').val(observacoes);
+
             });
         });
     </script>

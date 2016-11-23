@@ -23,6 +23,7 @@ class User extends Authenticatable
         'nr_mecanografico',
         'notificacoes',
         'admin',
+        'ativo',
         'inserido_por'
     ];
 
@@ -30,17 +31,16 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-
     public function tipomovimentos(){
-        return $this->hasMany('TipoMovimentos');
+        return $this->hasMany('App\TipoMovimentos');
     }
 
     public function movimentos(){
-        return $this->hasMany('Movimentos');
+        return $this->hasMany('App\Movimentos');
     }
 
     public function utilizadorservicos(){
-        return $this->hasMany('Utilizadorservicos');
+        return $this->hasMany('App\UtilizadorServicos');
     }
 
     public function correioNaoLido()
@@ -49,7 +49,6 @@ class User extends Authenticatable
     }
 
     public function getNome(){
-
         return User::where('id', $this->id)->nome;
     }
 

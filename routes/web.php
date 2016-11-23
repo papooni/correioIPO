@@ -48,6 +48,7 @@ Route::get('utilizadores/definicoes/{id}', 'UserController@definicoes');
 Route::get('/utilizadores/gravar_definicoes', 'UserController@gravar_definicoes');
 Route::get('/utilizadores/extra', 'UserController@extra');
 Route::get('utilizadores/atribuir_servico', 'UserController@atribuir_servico');
+Route::get('utilizadores/apagarservico', 'UserController@apagarservico');
 
 Route::get('/tipo_movimentos', function () {
     return view('tipomovimentos/index')->with('tipo_movimentos', App\TipoMovimentos::all());
@@ -141,6 +142,7 @@ Route::get('/correios/detalhes/{id}', 'CorreiosController@detalhes');
 Route::post('/correios/reenvio_correio/{id}', 'CorreiosController@gravar_reenvio');
 Route::get('/correios/meu_correio', 'CorreiosController@meu_correio');
 Route::get('/correios/pesquisa', 'CorreiosController@pesquisa');
+Route::post('/correios/apagar', 'CorreiosController@apagar');
 
 /*Route::get('/correios/index',function(){
     //return view('correios/index')->with('correios',App\Correios::paginate(15)->movimentos());
