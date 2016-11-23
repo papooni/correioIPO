@@ -29,11 +29,11 @@ Route::get('/entrar', 'UserController@entrar');
 Route::get('/estatistica', 'CorreiosController@estatistica');
 
 Route::get('/notificacoes', function () {
-    $users = User::all();
+    $users = User::where('ativo',1)->get();
     return view('notificacoes')->with('users', $users);
 });
 Route::get('/administradores', function () {
-    $users = User::all();
+    $users = User::where('ativo',0)->get();
     return view('administradores')->with('users', $users);
 });
 Route::get('definicoes',function () {
