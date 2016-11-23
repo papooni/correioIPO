@@ -235,6 +235,18 @@
                                 </div>
                             </div>
                         </div>
+<<<<<<< HEAD
+=======
+
+                        <div class="form-group">
+                            <label for="interno" class="col-md-4 control-label">Ativo</label>
+                            <div class="col-md-2">
+                                <input name="interno" id="interno" type="checkbox"  style="margin-top:10px;" >
+                            </div>
+                        </div>
+
+                        <input type="hidden" class="form-control" id="mid" name="mid" value="">
+>>>>>>> origin/master
                     </div>
                     <div class="modal-footer">
                     </div>
@@ -350,17 +362,19 @@
             //PESQUISA
             $('input:text').bind({
             });
-
             $( "#pesquisa_utilizador" ).autocomplete({
                 minLength:1,
                 autoFocus: true,
                 source: '{{URL('/utilizadores/getdatautilizador')}}',
             });
-
             $('[data-toggle="tooltip"]').tooltip();
+<<<<<<< HEAD
 
             //insere os servicos do utlizador na tabela
             $('.verdadosservicos').on('shown.bs.modal', function(event){
+=======
+            $('#verUtilizador').on('shown.bs.modal', function(event){
+>>>>>>> origin/master
                 $("#servicos").removeClass("active");
                 $("#dados").addClass("active");
                 $("#li_servicos").removeClass("active");
@@ -423,14 +437,16 @@
                     }, 5000);
                 });
             });
-
             $(".select_servico_associado").select2({
                 placeholder: "Escolha o Serviço:",
             });
         });
+<<<<<<< HEAD
 
 
 
 
+=======
+>>>>>>> origin/master
     </script>
 @stop
