@@ -50,7 +50,6 @@ Route::get('/utilizadores/gravar_definicoes', 'UserController@gravar_definicoes'
 Route::get('/utilizadores/extra', 'UserController@extra');
 Route::get('utilizadores/atribuir_servico', 'UserController@atribuir_servico');
 Route::get('utilizadores/apagarservico', 'UserController@apagarservico');
-<<<<<<< HEAD
 
 Route::get('utilizadores/apagarservicoutilizador', function () {
     $idservico = Input::get('idservico');
@@ -70,8 +69,6 @@ Route::get('utilizadores/apagarservicoutilizador', function () {
     /*return Response::json($utilizadorservicos->id);*/
     return Response::json($dados->id);
 });
-=======
->>>>>>> origin/master
 
 Route::get('/tipo_movimentos', function () {
     return view('tipomovimentos/index')->with('tipo_movimentos', App\TipoMovimentos::all());

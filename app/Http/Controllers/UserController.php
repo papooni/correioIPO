@@ -161,17 +161,10 @@ class UserController extends Controller
         }
     }
 
-<<<<<<< HEAD
 
     public function apagarservico(Request $request){
         $utilizadorservicos = UtilizadorServicos::findOrFail($request->idutilizadorservico);
         $utilizadorservicos->forceDelete();
-=======
-    public function apagarservico(Request $request){
-        $utilizadorservicos = UtilizadorServicos::findOrFail($request->idutilizadorservico);
-        $utilizadorservicos->forceDelete();
-
->>>>>>> origin/master
         return redirect('utilizadores/definicoes/'.$utilizadorservicos->user_id)->with('mensagem','Servico Apagado');
     }
 
