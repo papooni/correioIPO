@@ -103,7 +103,7 @@
                                 </li>
                                 @if(Auth::user()->admin >0)
                                     <li>
-                                        <a href="{{ url ('/utilizadores/extra') }}">Ver Utilizadores Extra</a>
+                                        <a href="{{ url ('/utilizadores/extra') }}">Ver Utilizadores Externos</a>
                                     </li>
                                     <li>
                                         <a href="{{ url ('/registar') }}">Adicionar Utilizadores</a>

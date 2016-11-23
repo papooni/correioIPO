@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Input;
 use App\User;
+use App\UtilizadorServicos;
 
 Route::auth();
 
@@ -48,6 +49,26 @@ Route::get('utilizadores/definicoes/{id}', 'UserController@definicoes');
 Route::get('/utilizadores/gravar_definicoes', 'UserController@gravar_definicoes');
 Route::get('/utilizadores/extra', 'UserController@extra');
 Route::get('utilizadores/atribuir_servico', 'UserController@atribuir_servico');
+Route::get('utilizadores/apagarservico', 'UserController@apagarservico');
+
+Route::get('utilizadores/apagarservicoutilizador', function () {
+    $idservico = Input::get('idservico');
+    $iduser = Input::get('iduser');
+
+    $data = DB::table('utilizador_servicos')
+        ->select('id')
+        ->where('user_id',$iduser)
+        ->orwhere('servicos_id',$idservico)
+        ->get();
+
+    $dados = UtilizadorServicos::where('user_id',$iduser)->where('servicos_id',$idservico)->first();
+
+    $utilizadorservicos = UtilizadorServicos::findOrFail($dados->id);
+    $utilizadorservicos->forceDelete();
+
+    /*return Response::json($utilizadorservicos->id);*/
+    return Response::json($dados->id);
+});
 
 Route::get('/tipo_movimentos', function () {
     return view('tipomovimentos/index')->with('tipo_movimentos', App\TipoMovimentos::all());
@@ -72,7 +93,6 @@ Route::any('/utilizadores/getdatautilizador', function () {
     }
     return Response::json($return_array);
 });
-
 Route::any('/correios/getdatacorreio', function () {
     $return_array[] = array();
     $term = Input::get('term');
@@ -141,6 +161,7 @@ Route::get('/correios/detalhes/{id}', 'CorreiosController@detalhes');
 Route::post('/correios/reenvio_correio/{id}', 'CorreiosController@gravar_reenvio');
 Route::get('/correios/meu_correio', 'CorreiosController@meu_correio');
 Route::get('/correios/pesquisa', 'CorreiosController@pesquisa');
+Route::post('/correios/apagar', 'CorreiosController@apagar');
 
 /*Route::get('/correios/index',function(){
     //return view('correios/index')->with('correios',App\Correios::paginate(15)->movimentos());

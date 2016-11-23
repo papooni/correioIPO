@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Correios;
+use App\Servicos;
 use App\User;
 use App\UtilizadorServicos;
 use Illuminate\Http\Request;
@@ -12,6 +13,7 @@ use Illuminate\Validation\Rule;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Response;
 use Auth;
+
 use Illuminate\Support\Facades\View;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
@@ -33,7 +35,7 @@ class UserController extends Controller
     public function extra(){
         return view('utilizadores/index')
             ->with('servicos_utilizador',UtilizadorServicos::paginate(10))
-            ->with('utilizadores',User::where('ativo',0)->paginate(10))->with('titulo','Utilizadores Extra');
+            ->with('utilizadores',User::where('ativo',0)->paginate(10))->with('titulo','Utilizadores Externos');
     }
 
     public function registar(Request $request){
@@ -65,15 +67,27 @@ class UserController extends Controller
         $user->nome = $request->get('mnome');
         $user -> email = $request->get('memail');
         $user -> nr_mecanografico =  $request->get('mnr');
+        $ativo = $request->interno;
+        if (is_null($ativo)){
+            $ativo = 0;
+        }else{
+            $ativo = 1;
+        }
+        $user-> ativo = $ativo;
         $user -> alterado_por = Auth::user()->id;
+        //var_dump($ativo .' - '. $request->interno);
         $user->save();
-        return redirect('utilizadores/index')->with('utilizadores',User::all())->with('mensagem','Utilizador ' .$request->get('mid')   .' Alterado!');
+        return redirect('utilizadores/index')->with('utilizadores',User::all())->with('mensagem','Utilizador ' .$request->get('mid').  ' ' . $user->nome .' Alterado!');
     }
 
     public function apagar(Request $request){
         $user = User::findorFail($request->get('mid'));
         $user->forceDelete();
-        return redirect('utilizadores/index')->with('utilizadores',User::all())->with('mensagem','Utilizador ' .$request->get('mid')   .' Apagado!');
+        $user->utilizadorservicos()->delete();
+
+        return redirect('utilizadores/index')
+            ->with('utilizadores',User::all())
+            ->with('mensagem','Utilizador '.$request->get('mid').' '. $user->nome .'  Apagado!');
     }
 
     public function pesquisa(Request $request){
@@ -97,15 +111,13 @@ class UserController extends Controller
 
     public function definicoes(Request $request){
         $user = User::findOrFail($request->id);
+        $servicos = \App\User::find($user->id)->utilizadorservicos()->get();
 
         if ($user->id != Auth::user()->id){
-
             return redirect('/utilizadores/index')->with('erro','Não tem Permissão para alterar dados que não lhe pertencem!');
         }else {
-            return view('utilizadores/definicoes')->with('user',$user);
+            return view('utilizadores/definicoes')->with('user',$user)->with('servicos', $servicos);
         }
-
-
     }
 
     public function gravar_definicoes(Request $request){
@@ -121,20 +133,39 @@ class UserController extends Controller
         $user -> nr_mecanografico =  $request->get('nr_mecanografico');
         $user -> alterado_por = Auth::user()->id;
         $user->save();
-
-
         return redirect('home')->with('novo','Utilizador Atualizado!');
     }
 
     public function atribuir_servico(Request $request){
+        $this->validate($request,[
+            'servico' => 'required'
+        ]);
+
         $user = User::findOrFail($request->get('mid'));
         $servico = $request->get('servico');
-        $utilizador_servicos = new UtilizadorServicos();
-        $utilizador_servicos->user_id = $user->id;
-        $utilizador_servicos->servicos_id = $servico;
-        $utilizador_servicos->save();
+        $servicoObj = Servicos::findOrFail($servico);
 
-        return redirect('utilizadores/index')->with('utilizadores',User::paginate(10))->with('mensagem','Foi atribuído com sucesso o serviço'. $servico .' ao utilizador' . $user->id );
+        if (count(UtilizadorServicos::where('user_id','=',$user->id)->where('servicos_id','=', $servicoObj->id)->get()) >0 ){
+            return redirect('utilizadores/index')
+                ->with('utilizadores',User::paginate(10))
+                ->with('erro','Serviço já atribuído a esse utilizador' );
+        }else{
+            $utilizador_servicos = new UtilizadorServicos();
+            $utilizador_servicos->user_id = $user->id;
+            $utilizador_servicos->servicos_id = $servico;
+            $utilizador_servicos->save();
+
+            return redirect('utilizadores/index')
+                ->with('utilizadores',User::paginate(10))
+                ->with('mensagem','Foi atribuído com sucesso o serviço '. $servicoObj->nome .' ao utilizador ' . $user->nome );
+        }
+    }
+
+
+    public function apagarservico(Request $request){
+        $utilizadorservicos = UtilizadorServicos::findOrFail($request->idutilizadorservico);
+        $utilizadorservicos->forceDelete();
+        return redirect('utilizadores/definicoes/'.$utilizadorservicos->user_id)->with('mensagem','Servico Apagado');
     }
 
     public function notificacoes(){
@@ -221,7 +252,7 @@ class UserController extends Controller
     public function login_normal($request){
         if (Auth::attempt(['nr_mecanografico' => $request->nr_mecanografico, 'password' => $request->password]))
         {
-            return redirect()->intended('home');
+            return redirect()->intended('home')->with('novo','Olá ' . Auth::user()->nome);
         }else{
             return redirect('login')->with('mensagem','ERRO DE LOGIN');
         }

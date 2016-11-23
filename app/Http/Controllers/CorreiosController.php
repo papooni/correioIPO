@@ -24,6 +24,15 @@ class CorreiosController extends Controller
          $this->middleware('auth:api');
      }*/
 
+    public function apagar(Request $request){
+        var_dump('APAGAR CORREIO ' . $request->id );
+        $correio = Correios::findorFail($request->id);
+        $correio->forceDelete();
+        $correio->movimentos()->delete();
+
+        return redirect('/correios/index')->with('mensagem','Correio Apagado!');
+    }
+
     public function gravar(Request $request){
 
         $this->validate($request, [
@@ -96,7 +105,7 @@ class CorreiosController extends Controller
         ]);
 
         $user = Auth::user();
-        $tipo_movimento = TipoMovimentos::find($request->get('tipomovimento'));//recebe o numero (id) é preciso verificar e ir buscar a descricao
+        $tipo_movimento = TipoMovimentos::findorFail($request->get('tipomovimento'));//recebe o numero (id) é preciso verificar e ir buscar a descricao
 
         $origem = $this->getIds($request->get('servico_origem'),$request->get('colaborador_origem'));
         $destino = $this->getIds($request->get('servico_destino'),$request->get('colaborador_destino'));
@@ -152,41 +161,38 @@ class CorreiosController extends Controller
                             </tr>
                         <tr style="text-align: center;border: 1px solid black;">
                             <td style="text-align: center;border: 1px solid black;">'. $observacoes.'</td>
-                            <td style="text-align: center;border: 1px solid black;">'.User::find($colaborador_origem)->nome.'</td>
-                            <td style="text-align: center;border: 1px solid black;">'.User::find($servico_origem)->nome .'</td>
-                            <td style="text-align: center;border: 1px solid black;">'.User::find($colaborador_destino)->nome.'</td>
-                            <td style="text-align: center;border: 1px solid black;">'.User::find($servico_destino)->nome .'</td>
+                            <td style="text-align: center;border: 1px solid black;">'.User::findorFail($colaborador_origem)->nome.'</td>
+                            <td style="text-align: center;border: 1px solid black;">'.Servicos::findorFail($servico_origem)->nome .'</td>
+                            <td style="text-align: center;border: 1px solid black;">'.User::findorFail($colaborador_destino)->nome.'</td>
+                            <td style="text-align: center;border: 1px solid black;">'.Servicos::findorFail($servico_destino)->nome .'</td>
                             <td style="text-align: center;border: 1px solid black;">'. Carbon::now().'</td>
                         </tr>
                 </table>
                 </body>
             </html>
                 ';
-
-
-
-
-
-
         $emails_to = ['8030083@gmail.com'];
 
-
         //Enviar Email
-        Mail::send(array('html' => 'emails.send'), ['title' => $title, 'content' => $content], function ($message) use ($user, $emails_to, $title) {
-            $message->from('app@mail.pt', 'Gestão Correio Interno IPO');
-            $message->to($emails_to);
-            //$message->attach($attach);
-            $message->subject($title);
-        });
+        try{
+            Mail::send(array('html' => 'emails.send'), ['title' => $title, 'content' => $content], function ($message) use ($user, $emails_to, $title) {
+                $message->from('app@mail.pt', 'Gestão Correio Interno IPO');
+                $message->to($emails_to);
+                //$message->attach($attach);
+                $message->subject($title);
+            });
+        }catch(Exception $exception){
+            $erro = $exception;
+        }
 
-
-        return redirect('correios/index')->with('mensagem',$tipo_movimento->descricao . ' com o Nr. '.$idnovo .' de Correio Registada  '  );
+        return redirect('correios/index')->with('mensagem',$tipo_movimento->descricao . ' com o Nr. '.$idnovo .' de Correio Registada. ERRO->  '. $erro   );
     }
 
     public function getIds($servicoinput , $colaborador){
 
         if (is_numeric($servicoinput)){
             if (is_numeric($colaborador)){
+                //EXISTEM OS DOIS
                 //DEVOLVER OS IDS DO SERVICO E DO UTILIZADOR JÁ EXISTENTES
                 $servico = Servicos::findOrFail($servicoinput);
                 $user = User::findOrFail($colaborador);
@@ -194,11 +200,12 @@ class CorreiosController extends Controller
                 $id_utilizador = $user->id;
             }
             else{
+                //EXISTE O SERVICO
                 //CRIAR NOVO UTILIZADOR
                 $servico = Servicos::findOrFail($servicoinput);
                 $user = new User();
                 $user->nome = $colaborador;
-                $user->nr_mecanografico = rand(1,9999);//nr aleatorio
+                $user->nr_mecanografico = 'IPO'.rand(1,9999);//nr aleatorio
                 $colaborador = $this->limparString($colaborador);
                 $colaborador = strtolower(str_replace(' ','',$colaborador));
                 $user->email = $colaborador.$user->nr_mecanografico.'@mail.pt';//combinacao pois o campo é unico na BD
@@ -216,7 +223,7 @@ class CorreiosController extends Controller
                 $utilizador_servicos->save();
 
                 $id_utilizador = $user->id;
-                $id_servico = $servico;
+                $id_servico = $servico->id;
             }
         }
         else{
@@ -246,7 +253,7 @@ class CorreiosController extends Controller
                 //CRIAR NOVO UTILIZADOR
                 $user = new User();
                 $user->nome = $colaborador;
-                $user->nr_mecanografico = rand(1,9999);
+                $user->nr_mecanografico = 'IPO'.rand(1,9999);
                 $colaborador = $this->limparString($colaborador);
                 $colaborador = strtolower(str_replace(' ','',$colaborador));
                 $user->email = $colaborador.$user->nr_mecanografico.'@mail.pt';//combinacao pois o campo é unico na BD
