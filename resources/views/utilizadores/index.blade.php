@@ -184,7 +184,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="interno" class="col-md-4 control-label">Tornar Interno</label>
+                            <label for="interno" class="col-md-4 control-label">Ativo</label>
                             <div class="col-md-2">
                                 <input name="interno" id="interno" type="checkbox"  style="margin-top:10px;" >
                             </div>
