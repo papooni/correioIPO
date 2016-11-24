@@ -119,6 +119,7 @@ class CorreiosController extends Controller
         //var_dump('<br> SERVIÇO DESTINO -'.$destino[0] . ' COLABORADOR DESTINO - ' . $destino[1]);
 
         //Criar Correio novo
+        $assunto = $request->get('assunto');
         $idnovo = Correios::create([
             'assunto' => $request->get('assunto'),
             'observacoes' => $request->get('observacoes'),
@@ -175,11 +176,11 @@ class CorreiosController extends Controller
         $erro='';
         //Enviar Email
         try{
-            Mail::send(array('html' => 'emails.send'), ['title' => $title, 'content' => $content], function ($message) use ($user, $emails_to, $title) {
+            Mail::send(array('html' => 'emails.send'), ['title' => $title, 'content' => $content], function ($message) use ($user, $emails_to, $title,$assunto) {
                 $message->from('app@mail.pt', 'Gestão Correio Interno IPO');
                 $message->to($emails_to);
                 //$message->attach($attach);
-                $message->subject($title);
+                $message->subject($assunto);
             });
         }catch(Exception $exception){
             $erro = $exception;
