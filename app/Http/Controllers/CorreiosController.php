@@ -142,7 +142,7 @@ class CorreiosController extends Controller
         ]);
 
         $observacoes = $request->get('observacoes');
-        $title = 'NOVA ' . strtoupper($tipo_movimento->descricao) . ' DE CORREIO ';
+        $title = 'NOVA ' . strtoupper($tipo_movimento->descricao) . ' DE CORREIO ' . $idnovo;
 
         $content =  '
                 <html>
