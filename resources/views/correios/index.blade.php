@@ -8,6 +8,12 @@
         </div>
     @endif
 
+    @if (session('erro'))
+        <div class="alert alert-danger col-md-3 col-md-offset-2 animated fadeInDown text-center" style="position: absolute; padding: 10px;">
+            {{ session('erro') }}
+        </div>
+    @endif
+
     <div class="row">
         <div class="col-md-4 pull-right">
             {!!  Form::open(array('url' => "/correios/pesquisa", 'class' => 'navbar-form navbar-left', 'method' => 'GET')) !!}
