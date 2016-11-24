@@ -186,7 +186,7 @@ class CorreiosController extends Controller
         }
 
         return redirect('correios/index')
-            ->with('mensagem',$tipo_movimento->descricao . ' com o Nr. '.$idnovo .' de Correio Registada. ' . (is_empty($erro)) ? 'Mail enviado' : 'Erro no envio de Email');
+            ->with('mensagem',$tipo_movimento->descricao . ' com o Nr. '.$idnovo .' de Correio Registada. ' . emptyString($erro) ? 'Mail enviado' : 'Erro no envio de Email');
     }
 
     public function getIds($servicoinput , $colaborador){
