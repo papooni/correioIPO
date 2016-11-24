@@ -22,25 +22,20 @@
         <div class="col-md-6 col-md-offset-2">
             <table class="table table-responsive table-striped ">
                 <tr>
-                    <th>ID</th>
-                    <th>
-                        Nome
-                    </th>
-
+                    <th><a href="/servicos/index?ordena=id">ID</a></th>
+                    <th><a href="/servicos/index?ordena=nome">Nome</a></th>
                     <th>
                         <a href="#Modalinserir" type="button" data-toggle="modal" class="btn btn-default btn-sm pull-right"   >
                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                         </a>
                     </th>
                 </tr>
-
                 @foreach($servicos as $servico)
                     <tr>
                         <td>{{ $servico->id }}</td>
                         <td>
                             {{ $servico->nome }}
                         </td>
-
                         <td>
                             <button type="button" class="btn btn-primary btn-outline btn-sm pull-right" style="margin-left: 5px;" data-toggle="modal"
                                     data-target="#Modalapagar" data-id="{{ $servico->id }}" data-nome="{{$servico->nome}}" >
@@ -50,7 +45,6 @@
                                     data-target="#Modaleditar" data-id="{{$servico->id}}" data-nome="{{$servico->nome}}" >
                                 <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                             </button>
-
                         </td>
                     </tr>
                 @endforeach
