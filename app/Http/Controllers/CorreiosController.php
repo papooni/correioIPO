@@ -172,7 +172,7 @@ class CorreiosController extends Controller
             </html>
                 ';
         $emails_to = ['8030083@gmail.com'];
-
+        $erro='';
         //Enviar Email
         try{
             Mail::send(array('html' => 'emails.send'), ['title' => $title, 'content' => $content], function ($message) use ($user, $emails_to, $title) {
