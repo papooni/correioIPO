@@ -12,7 +12,7 @@
     @endif
 
     <div class="row">
-        <div class="col-md-7 col-md-offset-5">
+        <div class="col-md-7 col-md-offset-4">
             {!!  Form::open(array('url' => "/servicos/pesquisa", 'class' => 'navbar-form navbar-left', 'method' => 'GET')) !!}
             {!!  Form::text('pesquisa_servico',$value = null, array('placeholder' => 'Pesquisar', 'id' => 'pesquisa_servico', 'class' => 'form-control')) !!}
             {!!  Form::button('<i class="fa fa-search"></i>', array('class' => 'btn btn-default','type' => 'submit')) !!}
@@ -20,11 +20,11 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-6 col-md-offset-2">
-            <table id="example" class="table table-responsive table-bordered">
+        <div class="col-md-4 col-md-offset-3">
+            <table class="table table-responsive table-striped table-hover">
                 <tr>
-                    <th>ID</th>
-                    <th>Nome</th>
+                    <th><a href="{{ url('/servicos/index?ordena=id') }}">ID</a></th>
+                    <th><a href="{{ url('/servicos/index?ordena=nome')}}">Nome</a></th>
                     @if (Auth::user()->admin)
                     <th>
                         <a href="#Modalinserir" type="button" data-toggle="modal" class="btn btn-default btn-sm pull-right"   >
@@ -36,11 +36,10 @@
                 @foreach($servicos as $servico)
                     <tr>
                         <td>{{ $servico->id }}</td>
-                        <td>
-                            {{ $servico->nome }}
-                        </td>
+                        <td>{{ $servico->nome }}</td>
                         @if (Auth::user()->admin)
                         <td>
+                            <input id="tipo" name="tipo" type="hidden" value="asc"/>
                             <button type="button" class="btn btn-primary btn-outline btn-sm pull-right" style="margin-left: 5px;" data-toggle="modal"
                                     data-target="#Modalapagar" data-id="{{ $servico->id }}" data-nome="{{$servico->nome}}" >
                                 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
@@ -206,18 +205,6 @@
                 modal.find('.modal-body input[name=nome]').val(nome);
             });
 
-            $('#example').dataTable( {
-                columnDefs: [ {
-                    targets: [ 0 ],
-                    orderData: [ 0, 1 ]
-                }, {
-                    targets: [ 1 ],
-                    orderData: [ 1, 0 ]
-                }, {
-                    targets: [ 4 ],
-                    orderData: [ 4, 0 ]
-                } ]
-            } );
         });
     </script>
 @stop

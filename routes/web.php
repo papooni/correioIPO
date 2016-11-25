@@ -169,10 +169,7 @@ Route::group(array('before' => 'auth'), function () {
         return view('correios/index')->with('correios',App\Movimentos::has('correios')->has('tipomovimentos')->has('users')->paginate(10));
         });*/
 
-    Route::get('servicos/index', function () {
-        return view('servicos/index')
-            ->with('servicos', App\Servicos::paginate(10));
-    });
+    Route::get('servicos/index', 'ServicosController@index');
     Route::post('servicos/inserir', 'ServicosController@inserir');
     Route::post('servicos/editar', 'ServicosController@editar');
     Route::post('servicos/apagar', 'ServicosController@apagar');

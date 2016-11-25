@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Servicos;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Input;
+
 
 class ServicosController extends Controller
 {
@@ -50,4 +52,18 @@ class ServicosController extends Controller
 
     }
 
+    public function index(Request $request)
+    {
+        $ordena = Input::get('ordena');
+        $tipo = Input::get('tipo');
+
+        if (is_null($ordena)){
+            $ordena = 'id';
+        }
+
+        return view('servicos/index')
+            ->with('servicos', Servicos::orderBy($ordena)->paginate(10))
+            ->with('ordena',$ordena)
+            ->with('tipo',$tipo);
+    }
 }
