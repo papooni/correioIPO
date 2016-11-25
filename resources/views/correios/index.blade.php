@@ -3,7 +3,7 @@
 @section('section')
     <link rel="stylesheet" href="{{ url('css/animate.css') }}">
     @if (session('mensagem'))
-        <div class="alert alert-success col-md-5 fadeInDown animated text-center">
+        <div class="alert alert-success col-md-5 col-md-offset-2 fadeInDown animated text-center">
             {{ session('mensagem') }}
         </div>
     @endif

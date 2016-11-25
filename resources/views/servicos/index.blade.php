@@ -21,15 +21,17 @@
     </div>
     <div class="row">
         <div class="col-md-6 col-md-offset-2">
-            <table id="example" class="display">
+            <table id="example" class="table table-responsive table-bordered">
                 <tr>
                     <th>ID</th>
                     <th>Nome</th>
+                    @if (Auth::user()->admin)
                     <th>
                         <a href="#Modalinserir" type="button" data-toggle="modal" class="btn btn-default btn-sm pull-right"   >
                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                         </a>
                     </th>
+                        @endif
                 </tr>
                 @foreach($servicos as $servico)
                     <tr>
@@ -37,6 +39,7 @@
                         <td>
                             {{ $servico->nome }}
                         </td>
+                        @if (Auth::user()->admin)
                         <td>
                             <button type="button" class="btn btn-primary btn-outline btn-sm pull-right" style="margin-left: 5px;" data-toggle="modal"
                                     data-target="#Modalapagar" data-id="{{ $servico->id }}" data-nome="{{$servico->nome}}" >
@@ -47,6 +50,7 @@
                                 <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                             </button>
                         </td>
+                        @endif
                     </tr>
                 @endforeach
             </table>
