@@ -170,14 +170,8 @@ Route::group(array('before' => 'auth'), function () {
         });*/
 
     Route::get('servicos/index', function () {
-        $ordena = Input::get('ordena');
-
-        if(is_null($ordena)){
-            $ordena = 'id';
-        }
         return view('servicos/index')
-            ->with('servicos', App\Servicos::orderBy($ordena)
-                ->paginate(10));
+            ->with('servicos', App\Servicos::paginate(10));
     });
     Route::post('servicos/inserir', 'ServicosController@inserir');
     Route::post('servicos/editar', 'ServicosController@editar');

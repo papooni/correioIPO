@@ -3,6 +3,7 @@
 @section('section')
 
     <link rel="stylesheet" href="{{ url('css/animate.css') }}">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
     @if (session('mensagem'))
         <div class="alert alert-success animated fadeIn">
             {{ session('mensagem') }}
@@ -20,10 +21,10 @@
     </div>
     <div class="row">
         <div class="col-md-6 col-md-offset-2">
-            <table class="table table-responsive table-striped ">
+            <table id="example" class="display">
                 <tr>
-                    <th><a href="/servicos/index?ordena=id">ID</a></th>
-                    <th><a href="/servicos/index?ordena=nome">Nome</a></th>
+                    <th>ID</th>
+                    <th>Nome</th>
                     <th>
                         <a href="#Modalinserir" type="button" data-toggle="modal" class="btn btn-default btn-sm pull-right"   >
                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
@@ -54,8 +55,6 @@
                     {{ $servicos->links() }}
                 @endif
             </div>
-
-
         </div>
     </div>
 
@@ -164,7 +163,9 @@
         </div>
     </div>
 
+
     <script src={{ asset("/js/jquery-ui.js") }}></script>
+    <script src='https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js'></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
 
     <script>
@@ -200,6 +201,19 @@
                 modal.find('.modal-body input[name=id]').val(id)
                 modal.find('.modal-body input[name=nome]').val(nome);
             });
+
+            $('#example').dataTable( {
+                columnDefs: [ {
+                    targets: [ 0 ],
+                    orderData: [ 0, 1 ]
+                }, {
+                    targets: [ 1 ],
+                    orderData: [ 1, 0 ]
+                }, {
+                    targets: [ 4 ],
+                    orderData: [ 4, 0 ]
+                } ]
+            } );
         });
     </script>
 @stop
