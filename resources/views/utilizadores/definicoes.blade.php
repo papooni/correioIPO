@@ -20,9 +20,11 @@
                         <li id="li_dados" role="presentation" class="active">
                             <a href="#dados" aria-controls="dados" role="tab" data-toggle="tab">Dados</a>
                         </li>
+                        @if (Auth::user()->admin)
                         <li id="li_servicos" role="presentation">
                             <a href="#servicos" aria-controls="servicos" role="tab" data-toggle="tab">Serviços</a>
                         </li>
+                        @endif
                     </ul>
                     <div id="tabs" class="tab-content">
 
@@ -60,6 +62,7 @@
                             </div>
                         </div>
 
+                        @if (Auth::user()->admin)
                         <div role="tabpanel" class="tab-pane " id="servicos">
                             <table id="servicos_utilizador"  class="table table-responsive table-striped " style="margin-top:10px;">
                                 <tr>
@@ -84,9 +87,9 @@
                                         </td>
                                     </tr>
                                 @endforeach
-
                             </table>
                         </div>
+                        @endif
                     </div>
                 </div>
             </div>
