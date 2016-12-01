@@ -231,7 +231,7 @@
                                     </tr>
                                 </table>
                                 <div class="alert alert-success col-md-5 fadeInLeft animated text-center apagado" style="display:none;padding:10px;">
-                                    Linha Apagada!
+                                    Serviço Apagado!
                                 </div>
                             </div>
                         </div>
