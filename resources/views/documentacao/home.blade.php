@@ -1,5 +1,5 @@
 @extends('documentacao.dashboard')
-@section('page_heading','Dashboard')
+@section('page_heading','Dashboard44')
 @section('section')
     <style>
 
