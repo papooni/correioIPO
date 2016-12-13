@@ -176,5 +176,5 @@ Route::group(array('after' => 'auth'), function () {
     Route::get('servicos/pesquisa', 'ServicosController@pesquisa');
 
 
-    Route::get('documentacao','ServicosController@index');
+    Route::get('/documentacao','ServicosController@index');
 });
