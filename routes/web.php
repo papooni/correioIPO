@@ -14,7 +14,7 @@ Route::get('/password/email', function(){
     return view('auth/passwords/email');
 });
 
-Route::group(array('before' => 'auth'), function () {
+Route::group(array('after' => 'auth'), function () {
     Route::get('/logout', 'UserController@logout');//->middleware('auth');
 
     Route::get('/registar', function () {
@@ -174,4 +174,7 @@ Route::group(array('before' => 'auth'), function () {
     Route::post('servicos/editar', 'ServicosController@editar');
     Route::post('servicos/apagar', 'ServicosController@apagar');
     Route::get('servicos/pesquisa', 'ServicosController@pesquisa');
+
+
+    Route::get('documentacao','ServicosController@index');
 });
