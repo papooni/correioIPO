@@ -1,4 +1,4 @@
-@extends('layouts.dashboard')
+@extends('documentacao.dashboard')
 @section('page_heading','Dashboard')
 @section('section')
     <style>
