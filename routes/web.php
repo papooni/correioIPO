@@ -14,7 +14,7 @@ Route::get('/password/email', function(){
     return view('auth/passwords/email');
 });
 
-Route::group(array('after' => 'auth'), function () {
+Route::group(['middleware' => 'auth'], function () {
     Route::get('/logout', 'UserController@logout');//->middleware('auth');
 
     Route::get('/registar', function () {
