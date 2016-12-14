@@ -9,7 +9,7 @@
     @endif
 
     @if (session('erro'))
-        <div class="alert alert-danger col-md-3 col-md-offset-2 animated fadeInDown text-center" style="position: absolute; padding: 10px;">
+        <div class="alert alert-danger col-md-3 col-md-offset-2 animated fadeInUp text-center" style="position: absolute; padding: 10px;margin-top: -80px;">
             {{ session('erro') }}
         </div>
     @endif

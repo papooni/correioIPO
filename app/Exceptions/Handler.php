@@ -7,6 +7,7 @@ use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Session\TokenMismatchException;
+use Symfony\Component\Debug\Exception\FatalErrorException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
@@ -57,6 +58,10 @@ class Handler extends ExceptionHandler
 
         if($exception instanceof ModelNotFoundException){
             return redirect('home')->with('erro','Erro de Base de Dados!');
+        }
+
+        if($exception instanceof FatalErrorException){
+            return redirect('home')->with('erro','Erro Fatal!');
         }
 
         return parent::render($request, $exception);
