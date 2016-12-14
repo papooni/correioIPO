@@ -1,4 +1,4 @@
-@extends('documentacao.dashboard')
+@extends('documentacao.doc_dashboard')
 @section('page_heading','Documentação')
 @section('section')
 
