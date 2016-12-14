@@ -4,9 +4,9 @@ use Illuminate\Support\Facades\Input;
 use App\User;
 use App\UtilizadorServicos;
 
-//Auth::routes();
+Auth::routes();
 
-Route::auth();
+//Route::auth();
 
 Route::get('/', function () {return view('welcome');});
 
@@ -16,7 +16,15 @@ Route::get('/password/email', function(){
     return view('auth/passwords/email');
 });
 
-Route::get('/entrar', 'UserController@entrar');//->middleware('auth');;
+Route::get('/entrar', 'UserController@entrar');
+
+Route::get('/docs2',function(){
+    return view('documentacao/home');
+});
+
+Route::get('/bd',function(){
+    return view('documentacao/bd');
+});
 
 Route::group(['middleware' => ['auth']], function () {
 
@@ -181,10 +189,5 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('servicos/apagar', 'ServicosController@apagar');
     Route::get('servicos/pesquisa', 'ServicosController@pesquisa');
 
-
-    Route::get('/documentacao',function(){
-
-        return view('documentacao/home');
-    });
-
 });
+

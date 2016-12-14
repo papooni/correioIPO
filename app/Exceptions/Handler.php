@@ -53,15 +53,15 @@ class Handler extends ExceptionHandler
         }
 
         if($exception instanceof TokenMismatchException){
-            return redirect('home')->with('erro','Token Errado!');
+            return redirect()->back()->with('erro','Token Errado!');
         }
 
         if($exception instanceof ModelNotFoundException){
-            return redirect('home')->with('erro','Erro de Base de Dados!');
+            return redirect()->back()->with('erro','Erro de Base de Dados!');
         }
 
         if($exception instanceof FatalErrorException){
-            return redirect('home')->with('erro','Erro Fatal!');
+            return redirect()->back()->with('erro','Erro Fatal!');
         }
 
         return parent::render($request, $exception);

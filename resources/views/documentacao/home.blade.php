@@ -1,4 +1,4 @@
-@extends('documentacao.doc_dashboard')
+@extends('documentacao.docdashboard')
 @section('page_heading','Documentação')
 @section('section')
 
@@ -9,8 +9,6 @@
         </div>
     @endif
 
-
-
     <script src="{{ url('js/jquery-ui.js') }}"></script>
     <script>
         $(function() {
@@ -20,4 +18,3 @@
         });
     </script>
 @stop
-

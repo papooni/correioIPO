@@ -52,7 +52,7 @@
                                 <li><a href="{{ url('/correios/meu_correio') }}">
                                         <i class="fa fa-envelope"></i> Meu Correio</a></li>
                             @endif
-                            <li><a href="{{ url('/documentacao') }}"><i class="fa fa-btn fa-book"></i> Documentação</a></li>
+                            <li><a href="{{ url('/docs2') }}"><i class="fa fa-btn fa-book"></i> Documentação</a></li>
                             <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i> Sair</a></li>
                         </ul>
                     </li>
