@@ -17,7 +17,7 @@
     <div class="col-sm-12">
         <div class="row">
 
-            <div class="col-lg-3 col-md-6 col-md-offset-2">
+            <div class="col-lg-3 col-md-6 col-lg-offset-2 col-md-offset-2">
                 <div class="panel panel-info">
                     <div class="panel-heading" style="cursor: pointer;" onclick="window.location='correios/index';">
                         <div class="row" >
@@ -38,7 +38,6 @@
                         <span class="pull-right"><a href="{{ url ('correios/index') }}"><i class="fa fa-arrow-circle-right"></i></a></span>
                         <div class="clearfix"></div>
                     </div>
-
                 </div>
             </div>
 
@@ -95,7 +94,8 @@
 
         @if(Auth::user()->admin)
         <div class="row">
-            <div class="col-lg-3 col-md-6 col-md-offset-3">
+
+            <div class="col-lg-3 col-md-6 col-lg-offset-3 col-md-offset-3">
                 <div class="panel panel-default">
                     <div class="panel-heading" style="cursor: pointer;" onclick="window.location='definicoes';">
                         <div class="row">
@@ -152,6 +152,7 @@
                     </a>
                 </div>
             </div>
+
         </div>
         @endif
 

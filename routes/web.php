@@ -4,7 +4,9 @@ use Illuminate\Support\Facades\Input;
 use App\User;
 use App\UtilizadorServicos;
 
-Route::auth();
+Auth::routes();
+
+//Route::auth();
 
 Route::get('/', function () {return view('welcome');});
 
@@ -14,7 +16,7 @@ Route::get('/password/email', function(){
     return view('auth/passwords/email');
 });
 
-Route::group(['middleware' => ['auth']], function () {
+//Route::group(['middleware' => ['auth']], function () {
     Route::get('/logout', 'UserController@logout');//->middleware('auth');
 
     Route::get('/registar', function () {
@@ -24,7 +26,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/home', function () {
         return view('home');
-    });//->middleware('auth');
+    })->middleware('auth');
     Route::get('/entrar', 'UserController@entrar');
 
     Route::get('/estatistica', 'CorreiosController@estatistica');
@@ -181,4 +183,4 @@ Route::group(['middleware' => ['auth']], function () {
         return view('documentacao/home');
     });
 
-});
+//});

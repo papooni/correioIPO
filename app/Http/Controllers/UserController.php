@@ -20,9 +20,9 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 class UserController extends Controller
 {
 
-    /* public function __construct()
+/*     public function __construct()
      {
-         $this->middleware('auth:api');
+         $this->middleware('auth');
      }*/
 
     public function index(){
@@ -250,20 +250,21 @@ class UserController extends Controller
     }
 
     public function login_normal($request){
-        if (Auth::guard('web')->attempt(['nr_mecanografico' => $request->nr_mecanografico, 'password' => $request->password]))
+        if (Auth::attempt(['nr_mecanografico' => $request->nr_mecanografico, 'password' => $request->password]))
         {
-            return redirect()->intended('home')->with('novo','Olá ' . Auth::user()->nome);
+           return redirect()->intended('home')->with('novo','Olá ' . Auth::user()->nome);
         }else{
             return redirect('login')->with('mensagem','ERRO DE LOGIN');
         }
+
     }
 
     public function login_ad($request){
-
+        return redirect('login')->with('mensagem','LOGIN AD');
     }
 
     public function login_sso($request){
-
+        return redirect('login')->with('mensagem','LOGIN SSO');
     }
 
     public function logout(){
