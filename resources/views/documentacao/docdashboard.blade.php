@@ -29,7 +29,7 @@
                             <a href="#"><i class="fa fa-envelope fa-fw"></i> Php Framework Laravel<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="{{ url ('correios/index') }}">Versão</a>
+                                    <a href="{{ url ('requisitos') }}">Requisitos</a>
                                 </li>
                                 <li {{ (Request::is('*correios/registar') ? 'class="active"' : '') }}>
                                     <a href="{{ url ('correios/registar') }}">Componentes</a>
