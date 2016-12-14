@@ -1,11 +1,6 @@
 @extends('layouts.dashboard')
 @section('page_heading','Dashboard')
 @section('section')
-    <style>
-
-    </style>
-
-
     <link rel="stylesheet" href="{{ url('css/animate.css') }}">
     @if (session('novo'))
         <div id="mensagem" class="alert alert-success col-md-6 col-md-offset-3 fadeInDown animated text-center option">
@@ -13,6 +8,11 @@
         </div>
     @endif
 
+    @if (session('erro'))
+        <div class="alert alert-danger col-md-3 col-md-offset-2 animated fadeInDown text-center" style="position: absolute; padding: 10px;">
+            {{ session('erro') }}
+        </div>
+    @endif
 
     <div class="col-sm-12">
         <div class="row">

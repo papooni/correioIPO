@@ -4,7 +4,9 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Session\TokenMismatchException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
@@ -46,8 +48,17 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $exception)
     {
         if($exception instanceof NotFoundHttpException){
-            return redirect()->guest('home');
+            return redirect('home')->with('erro','Página Não Existe!');
         }
+
+        if($exception instanceof TokenMismatchException){
+            return redirect('home')->with('erro','Token Errado!');
+        }
+
+        if($exception instanceof ModelNotFoundException){
+            return redirect('home')->with('erro','Erro de Base de Dados!');
+        }
+
         return parent::render($request, $exception);
     }
 
