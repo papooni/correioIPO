@@ -65,10 +65,10 @@
 
 
 <div class="row">
-    <div class="col-md-6 col-sm-12 col-xs-12">
+    <div class="col-md-6 col-sm-6 hidden-xs">
         <img src=" {{ asset("img/logo_ipo_cortado.png")  }}" class="animated fadeIn" style="position: absolute;top: -170px;left: 10px;" width="850" height="650">
     </div>
-    <div class="col-md-4 col-sm-6 col-sm-offset-5 col-xs-6">
+    <div class="col-md-4 col-md-offset-5 col-sm-6 col-xs-10 col-xs-offset-1">
         {{--<img src=" {{ asset("img/logo_horizontal_ipo.png")  }}" width="230px" height="70px" >--}}
         <div class="panel panel-default" style="border: rgba(196, 196, 196,0.37) solid 1px;border-radius: 10px; -webkit-box-shadow: 0px 0 50px #ccc;">
             <div class="panel-heading" style="font-size: 20px;font-weight: bold;"> Entrar
@@ -80,7 +80,7 @@
                     <div class="form-group{{ $errors->has('nr_mecanografico') ? ' has-error' : '' }}">
                         <label for="nr_mecanografico" class="col-md-4 control-label">Utilizador</label>
 
-                        <div class="col-md-6 input-group">
+                        <div class="col-md-6 col-sm-6 input-group">
 
                                  <span class="input-group-addon" id="basic-addon1">
                                 <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
@@ -96,7 +96,7 @@
                     </div>
                     <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                         <label for="password" class="col-md-4 control-label">Password</label>
-                        <div class="col-md-6 input-group">
+                        <div class="col-md-6 col-sm-6 input-group">
                                  <span class="input-group-addon" id="basic-addon1">
                                 <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
                                 </span>

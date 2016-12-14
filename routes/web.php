@@ -4,9 +4,9 @@ use Illuminate\Support\Facades\Input;
 use App\User;
 use App\UtilizadorServicos;
 
-Auth::routes();
+//Auth::routes();
 
-//Route::auth();
+Route::auth();
 
 Route::get('/', function () {return view('welcome');});
 
@@ -16,20 +16,24 @@ Route::get('/password/email', function(){
     return view('auth/passwords/email');
 });
 
-//Route::group(['middleware' => ['auth']], function () {
+Route::get('/entrar', 'UserController@entrar');//->middleware('auth');;
+
+Route::group(['middleware' => ['auth']], function () {
+
     Route::get('/logout', 'UserController@logout');//->middleware('auth');
 
     Route::get('/registar', function () {
         return view('auth/registar');
     });//->middleware('auth');
-    Route::post('/registar_utilizador', 'UserController@registar');
+
+    Route::post('/registar_utilizador', 'UserController@registar');//->middleware('auth');;
 
     Route::get('/home', function () {
         return view('home');
-    })->middleware('auth');
-    Route::get('/entrar', 'UserController@entrar');
+    });//->middleware('auth');
 
-    Route::get('/estatistica', 'CorreiosController@estatistica');
+
+    Route::get('/estatistica', 'CorreiosController@estatistica');//->middleware('auth');;
 
     Route::get('/notificacoes', function () {
         $users = User::where('ativo', 1)->get();
@@ -183,4 +187,4 @@ Route::get('/password/email', function(){
         return view('documentacao/home');
     });
 
-//});
+});
