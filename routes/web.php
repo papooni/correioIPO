@@ -14,7 +14,7 @@ Route::get('/password/email', function(){
     return view('auth/passwords/email');
 });
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => ['auth']], function () {
     Route::get('/logout', 'UserController@logout');//->middleware('auth');
 
     Route::get('/registar', function () {
@@ -24,7 +24,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/home', function () {
         return view('home');
-    });
+    });//->middleware('auth');
     Route::get('/entrar', 'UserController@entrar');
 
     Route::get('/estatistica', 'CorreiosController@estatistica');

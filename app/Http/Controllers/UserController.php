@@ -250,7 +250,7 @@ class UserController extends Controller
     }
 
     public function login_normal($request){
-        if (Auth::attempt(['nr_mecanografico' => $request->nr_mecanografico, 'password' => $request->password]))
+        if (Auth::guard('web')->attempt(['nr_mecanografico' => $request->nr_mecanografico, 'password' => $request->password]))
         {
             return redirect()->intended('home')->with('novo','Olá ' . Auth::user()->nome);
         }else{
