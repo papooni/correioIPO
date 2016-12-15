@@ -7,6 +7,7 @@ use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Session\TokenMismatchException;
+use Psy\Exception\ErrorException;
 use Symfony\Component\Debug\Exception\FatalErrorException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -71,6 +72,10 @@ class Handler extends ExceptionHandler
 
         if($exception instanceof BadMethodCallException){
             return redirect('login')->with('erro',$exception->getMessage());
+        }
+
+        if($exception instanceof ErrorException){
+            return redirect()->back()->with('erro',$exception->getMessage());
         }
 
         return parent::render($request, $exception);

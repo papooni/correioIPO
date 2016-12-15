@@ -357,6 +357,17 @@ class CorreiosController extends Controller
             $novo_tipo_movimento = 1;
         }
 
+
+        $this->validate($request, [
+            'servico_origem' => 'required',
+            'colaborador_origem'  => 'required',
+            'servico_destino' => 'required',
+            'colaborador_destino' => 'required',
+        ]);
+
+
+
+
         Movimentos::create([
             'correios_id' => $correio->id,
             'tipo_movimentos_id' => $novo_tipo_movimento ,
@@ -382,9 +393,7 @@ class CorreiosController extends Controller
             //$message->attach($attach);
             $message->subject($title);
         });
-
         return redirect('correios/index')->with('mensagem','Foi registado uma ' . $movimento  .  ' do Correio  ' .$correio->id );
-
     }
 
     public function estatistica(){
