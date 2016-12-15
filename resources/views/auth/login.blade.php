@@ -115,6 +115,7 @@
                                 <option value="0">Normal</option>
                                 <option value="1">Active Directory</option>
                                 <option value="2">SSO</option>
+                                <option value="3">LDAP</option>
                             </select>
 
                         </div>

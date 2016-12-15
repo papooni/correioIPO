@@ -64,6 +64,15 @@ class Handler extends ExceptionHandler
             return redirect()->back()->with('erro','Erro Fatal!');
         }
 
+        if($exception instanceof PDOException){
+            return redirect('login')->with('erro','Erro de Ligação à BD');
+        }
+
+
+        if($exception instanceof BadMethodCallException){
+            return redirect('login')->with('erro',$exception->getMessage());
+        }
+
         return parent::render($request, $exception);
     }
 

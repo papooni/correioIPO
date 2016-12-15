@@ -20,10 +20,10 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 class UserController extends Controller
 {
 
-/*     public function __construct()
-     {
-         $this->middleware('auth');
-     }*/
+    /*     public function __construct()
+         {
+             $this->middleware('auth');
+         }*/
 
     public function index(){
         return view('utilizadores/index')
@@ -228,31 +228,31 @@ class UserController extends Controller
     ///////////////////////////////////////////////////////
 
     public function entrar(Request $request){
-
         $this->validate($request, [
             'nr_mecanografico' => 'required',
             'password' => 'required|min:6',
         ]);
-
         if ($request->ligacao == 0 ){
             //NORMAL
             return $this->login_normal($request);
         }elseif ($request->ligacao == 1 ){
             //ACTIVE DIRECTORY
             return $this->login_ad($request);
-        }elseif($request->ligacao == 2 ){
+        }elseif($request->ligacao == 2 ) {
             //SINGLE SIGN ON
             return $this->login_sso($request);
+        }elseif($request->ligacao == 3) {
+            //LDAP
+            return $this->login_ldap($request);
         }else{
             return view('/welcome');
         }
-
     }
 
     public function login_normal($request){
         if (Auth::attempt(['nr_mecanografico' => $request->nr_mecanografico, 'password' => $request->password]))
         {
-           return redirect()->intended('home')->with('novo','Olá ' . Auth::user()->nome);
+            return redirect()->intended('home')->with('novo','Olá ' . Auth::user()->nome);
         }else{
             return redirect('login')->with('mensagem','ERRO DE LOGIN');
         }
@@ -264,8 +264,111 @@ class UserController extends Controller
     }
 
     public function login_sso($request){
+        $ligacao = '';
+        //BD Oracle
+        //Dados de ligação à base de dados oracle
+        $user = "portal_hlp";
+        $password = "AAAAAAAAAAAAAAAAAAAAAAAAA";
+        //service name e descrição
+        $db = "(DESCRIPTION=
+    (ADDRESS=
+        (PROTOCOL=TCP)
+      (HOST=ipophasif.ipoporto.min-saude.pt)
+      (PORT=1521)
+    )
+    (CONNECT_DATA=
+        (SERVER=dedicated)
+      (SERVICE_NAME=infra.ipoporto.min-saude.pt)
+    )
+  )"
+        ;
+        //conexão à bd oracle
+        $connect = oci_connect($user, $password, $db);
+
+        $nis = '';
+        $sessionid = '';
+        $table = mysqli_select_db($ligacao,"plano_contingencia");
+        //data actual
+        date_default_timezone_set("Europe/Lisbon");
+        $data =date("Y-m-d H:i:s");
+        //query para verificar se existe
+        $query = "SELECT * from PORTAL_SSO_SIIMA WHERE USER_ID='".$nis."' and SESSION_ID='".$sessionid."'";
+        $result = oci_parse($connect, $query);
+        //executa a query
+        oci_execute($result);
+        $tmpcount = oci_fetch($result);
+        //se ecnontrar alguma linha guardar as variaveis de sessão
+        if ($tmpcount==1) {
+            $_SESSION['login_user'] = $nis;
+            $_SESSION['session_id'] = $sessionid;
+            //grava um novo acesso na tabela de acessos
+            $queryAcesso = "INSERT INTO acesso (num_mec, data_acesso)
+                       VALUES ('$nis', '$data')";
+            $query = mysqli_query($ligacao, $queryAcesso);
+            //query para destruir o token logo mal inicia a sessão
+            $queryDelete = "DELETE from PORTAL_SSO_SIIMA WHERE USER_ID='".$nis."' and SESSION_ID='".$sessionid."'";
+            $result = oci_parse($connect, $queryDelete);
+            //executa a query
+            oci_execute($result);
+        } else {
+            //algo na conexão falhou
+            echo "O login Falhou";
+        }
+        //fecha ligações
+        oci_close($connect);
+        mysqli_close($ligacao);
         return redirect('login')->with('mensagem','LOGIN SSO');
     }
+
+    public function login_ldap($request){
+        $ligacao = '';
+        $table = mysqli_select_db($ligacao,"plano_contingencia");
+        $user = $request->nr_mecanografico;
+        $pass = $request->password;
+        date_default_timezone_set("Europe/Lisbon");
+        $data =date("Y-m-d H:i:s");
+        //Endereco do servido AD IP ou nome
+        $servidor_AD = "192.168.2.160";
+        //$servidor_AD = "ipophasif.ipoporto.min-saude.pt";
+        //Domínio
+        $dominio = "porto.local";
+        // Conexão com servidor AD.
+        $ad = ldap_connect($servidor_AD);
+        if ($ad) {
+            // Versao do protocolo
+            ldap_set_option($ad, LDAP_OPT_PROTOCOL_VERSION, 3);
+            // Usara as referencias do servidor AD, neste caso nao
+            ldap_set_option($ad, LDAP_OPT_REFERRALS, 0);
+            // Bind
+            $bd = ldap_bind($ad, $user . "@" . $dominio, $pass);
+            $basedn = 'dc=porto,dc=local';
+            $userdn = getDN($ad, $user, $basedn);
+            //grupo permitido
+            $group ="internetaccess";
+            if (checkGroupEx($ad, $userdn, getDN($ad, $group, $basedn))) {
+                $autorizado=true;
+            } else {
+                $autorizado=false;
+            }
+            if (($bd) and ($autorizado==true)) {
+                $_SESSION['login_user'] = $user;
+                //grava um novo acesso na tabela de acessos
+                $queryAcesso = "INSERT INTO acesso (num_mec, data_acesso)
+                       VALUES ('$user', '$data')";
+                $query = mysqli_query($ligacao, $queryAcesso);
+            } else {
+                $error= "Número Mecanográfico ou Password inválido!";
+            }
+        } else {
+            $error = "Nao Conectado no servidor";
+        }
+        ldap_unbind($ad);
+
+        return redirect('login')->with('mensagem','LOGIN LDAP');
+    }
+
+
+
 
     public function logout(){
         Auth::logout();

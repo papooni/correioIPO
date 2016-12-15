@@ -52,8 +52,8 @@
                         <li {{ (Request::is('*bd') ? 'class="active"' : '') }}>
                             <a href="{{ url ('bd') }}"><i class="fa fa-database"></i> Base de Dados</a>
                         </li>
-                        <li {{ (Request::is('*forms') ? 'class="active"' : '') }}>
-                            <a href="{{ url ('forms') }}"><i class="fa fa-cog fa-fw"></i> Requisitos<span class="fa arrow"></span></a>
+                        <li {{ (Request::is('*requisitos') ? 'class="active"' : '') }}>
+                            <a href="{{ url ('requisitos') }}"><i class="fa fa-cog fa-fw"></i> Requisitos<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
                                     <a href="{{ url ('utilizadores') }}">Funcionais</a>

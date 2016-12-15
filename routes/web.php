@@ -18,13 +18,6 @@ Route::get('/password/email', function(){
 
 Route::get('/entrar', 'UserController@entrar');
 
-Route::get('/docs2',function(){
-    return view('documentacao/home');
-});
-
-Route::get('/bd',function(){
-    return view('documentacao/bd');
-});
 
 Route::group(['middleware' => ['auth']], function () {
 
@@ -191,3 +184,15 @@ Route::group(['middleware' => ['auth']], function () {
 
 });
 
+
+Route::get('/docs2',function(){
+    return view('documentacao/home');
+});
+
+Route::get('/bd',function(){
+    return view('documentacao/bd');
+});
+
+Route::get('/requisitos',function(){
+    return view('documentacao/requisitos');
+});
