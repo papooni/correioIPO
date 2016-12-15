@@ -42,7 +42,7 @@ class ServicosController extends Controller
         if (!empty($request->pesquisa_servico)){
             $id_servico = explode("-",$request->pesquisa_servico);
             $id_servico = str_replace(" ","", $id_servico);
-            $servicos = Servicos::find($id_servico);
+            $servicos = Servicos::findorFail($id_servico);
             return view('servicos/index')->with('servicos',$servicos);
         }
         else{

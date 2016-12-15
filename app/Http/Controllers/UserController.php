@@ -94,7 +94,7 @@ class UserController extends Controller
         if (!empty($request->pesquisa_utilizador)  ){
             $id_utilizador = explode("-",$request->pesquisa_utilizador);
             $id_utilizador = str_replace(" ","", $id_utilizador);
-            $utilizadores = User::find($id_utilizador);
+            $utilizadores = User::findorFail($id_utilizador);
 
             return view('utilizadores/index')
                 ->with('servicos_utilizador',UtilizadorServicos::paginate(10))
@@ -160,7 +160,6 @@ class UserController extends Controller
                 ->with('mensagem','Foi atribuído com sucesso o serviço '. $servicoObj->nome .' ao utilizador ' . $user->nome );
         }
     }
-
 
     public function apagarservico(Request $request){
         $utilizadorservicos = UtilizadorServicos::findOrFail($request->idutilizadorservico);
@@ -241,9 +240,6 @@ class UserController extends Controller
         }elseif($request->ligacao == 2 ) {
             //SINGLE SIGN ON
             return $this->login_sso($request);
-        }elseif($request->ligacao == 3) {
-            //LDAP
-            return $this->login_ldap($request);
         }else{
             return view('/welcome');
         }
@@ -259,10 +255,6 @@ class UserController extends Controller
 
     }
 
-    public function login_ad($request){
-        return redirect('login')->with('mensagem','LOGIN AD');
-    }
-
     public function login_sso($request){
         $ligacao = '';
         //BD Oracle
@@ -270,18 +262,8 @@ class UserController extends Controller
         $user = "portal_hlp";
         $password = "AAAAAAAAAAAAAAAAAAAAAAAAA";
         //service name e descrição
-        $db = "(DESCRIPTION=
-    (ADDRESS=
-        (PROTOCOL=TCP)
-      (HOST=ipophasif.ipoporto.min-saude.pt)
-      (PORT=1521)
-    )
-    (CONNECT_DATA=
-        (SERVER=dedicated)
-      (SERVICE_NAME=infra.ipoporto.min-saude.pt)
-    )
-  )"
-        ;
+        $db = "(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=ipophasif.ipoporto.min-saude.pt)(PORT=1521))
+                (CONNECT_DATA=(SERVER=dedicated)(SERVICE_NAME=infra.ipoporto.min-saude.pt)))";
         //conexão à bd oracle
         $connect = oci_connect($user, $password, $db);
 
@@ -320,7 +302,7 @@ class UserController extends Controller
         return redirect('login')->with('mensagem','LOGIN SSO');
     }
 
-    public function login_ldap($request){
+    public function login_ad($request){
         $ligacao = '';
         $table = mysqli_select_db($ligacao,"plano_contingencia");
         $user = $request->nr_mecanografico;
@@ -364,11 +346,8 @@ class UserController extends Controller
         }
         ldap_unbind($ad);
 
-        return redirect('login')->with('mensagem','LOGIN LDAP');
+        return redirect('login')->with('mensagem','LOGIN AD');
     }
-
-
-
 
     public function logout(){
         Auth::logout();

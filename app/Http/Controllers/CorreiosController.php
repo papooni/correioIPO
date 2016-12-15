@@ -365,9 +365,6 @@ class CorreiosController extends Controller
             'colaborador_destino' => 'required',
         ]);
 
-
-
-
         Movimentos::create([
             'correios_id' => $correio->id,
             'tipo_movimentos_id' => $novo_tipo_movimento ,

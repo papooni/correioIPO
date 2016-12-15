@@ -20,11 +20,11 @@
                         <li id="li_dados" role="presentation" class="active">
                             <a href="#dados" aria-controls="dados" role="tab" data-toggle="tab">Dados</a>
                         </li>
-                        @if (Auth::user()->admin)
+                        {{--@if (Auth::user()->admin)--}}
                         <li id="li_servicos" role="presentation">
                             <a href="#servicos" aria-controls="servicos" role="tab" data-toggle="tab">Serviços</a>
                         </li>
-                        @endif
+                        {{--@endif--}}
                     </ul>
                     <div id="tabs" class="tab-content">
 
@@ -54,42 +54,51 @@
                             <div class="form-group{{ $errors->has('nr_mecanografico') ? ' has-error' : '' }}">
                                 <label for="nr_mecanografico" class="col-md-4 control-label">Nr. Mecanográfico</label>
                                 <div class="col-md-3">
-                                    <input id="nr_mecanografico" type="number" pattern= "[0-9]"  class="form-control" name="nr_mecanografico" value="{{$user->nr_mecanografico}}">
-                                    @if ($errors->has('nr_mecanografico'))
-                                    </span>
+
+                                    @if (Auth::user()->admin)
+                                        <input id="nr_mecanografico" type="number" pattern= "[0-9]"  class="form-control" name="nr_mecanografico" value="{{$user->nr_mecanografico}}">
+                                    @else
+                                        <input id="nr_mecanografico" type="number" readonly pattern= "[0-9]"  class="form-control" name="nr_mecanografico" value="{{$user->nr_mecanografico}}">
+                                        @endif
+
+                                        @if ($errors->has('nr_mecanografico'))
+                                        </span>
                                     @endif
                                 </div>
                             </div>
                         </div>
 
-                        @if (Auth::user()->admin)
+                        {{--@if (Auth::user()->admin)--}}
                         <div role="tabpanel" class="tab-pane " id="servicos">
                             <table id="servicos_utilizador"  class="table table-responsive table-striped " style="margin-top:10px;">
                                 <tr>
                                     <th>ID</th>
                                     <th>NOME</th>
-                                    <th>
-                                        <a href="#atribuirServico" type="button" data-toggle="modal" data-id="{{ $user->id }}" class="btn btn-default btn-sm pull-right vu"   >
-                                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                                        </a>
-                                    </th>
-
+                                    @if (Auth::user()->admin)
+                                        <th>
+                                            <a href="#atribuirServico" type="button" data-toggle="modal" data-id="{{ $user->id }}" class="btn btn-default btn-sm pull-right vu"   >
+                                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                            </a>
+                                        </th>
+                                    @endif
                                 </tr>
 
                                 @foreach( $servicos as $servico)
                                     <tr>
                                         <td>{{ $servico->servicos_id }}</td>
                                         <td>{{ \App\Servicos::find($servico->servicos_id)->nome }}</td>
-                                        <td>
-                                            <a  href="#apagarServico" class="btn btn-danger btn-sm btn-outline va" data-toggle="modal" title="Apagar" data-idutilizadorservico="{{ $servico->id }}"  data-nomeservico="{{ \App\Servicos::find($servico->servicos_id)->nome }}" style="margin-top:-5px;">
-                                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                            </a>
-                                        </td>
+                                        @if (Auth::user()->admin)
+                                            <td>
+                                                <a  href="#apagarServico" class="btn btn-danger btn-sm btn-outline va" data-toggle="modal" title="Apagar" data-idutilizadorservico="{{ $servico->id }}"  data-nomeservico="{{ \App\Servicos::find($servico->servicos_id)->nome }}" style="margin-top:-5px;">
+                                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                                </a>
+                                            </td>
+                                        @endif
                                     </tr>
                                 @endforeach
                             </table>
                         </div>
-                        @endif
+                        {{--@endif--}}
                     </div>
                 </div>
             </div>
