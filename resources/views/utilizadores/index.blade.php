@@ -88,23 +88,176 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="myModalLabel">Ver Utilizador</h4>
                 </div>
-                <div class="modal-body col-md-offset-2 col-md-10">
-                    <ul class="nav nav-tabs" role="tablist">
-                        <li id="li_dados" role="presentation" class="active">
-                            <a href="#dados" aria-controls="dados" role="tab" data-toggle="tab">Dados</a>
-                        </li>
-                        <li id="li_servicos" role="presentation">
-                            <a href="#servicos" aria-controls="servicos" role="tab" data-toggle="tab">Serviços</a>
-                        </li>
-                    </ul>
-                    <div id="tabs" class="tab-content">
-                        <div role="tabpanel" class="tab-pane active" id="dados">
-                            <div class="form-group">
-                                <label class="col-xs-4 control-label ">ID:</label>
-                                <div class="col-xs-5">
-                                    <input type="text" class="form-control" id="mid" name="mid" readonly value="">
+                <div class="modal-body row">
+                    <div class="col-md-offset-2 col-md-8">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li id="li_dados" role="presentation" class="active">
+                                <a href="#dados" aria-controls="dados" role="tab" data-toggle="tab">Dados</a>
+                            </li>
+                            <li id="li_servicos" role="presentation">
+                                <a href="#servicos" aria-controls="servicos" role="tab" data-toggle="tab">Serviços</a>
+                            </li>
+                        </ul>
+                        <div id="tabs" class="tab-content">
+                            <div role="tabpanel" class="tab-pane active" id="dados">
+                                <div class="form-group">
+                                    <label class="col-xs-4 control-label ">ID:</label>
+                                    <div class="col-xs-5">
+                                        <input type="text" class="form-control" id="mid" name="mid" readonly value="">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-xs-4 control-label ">Nome:</label>
+                                    <div class="col-xs-5">
+                                        <input type="text" class="form-control" id="mnome" name="mnome" readonly value="">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-xs-4 control-label">Email</label>
+                                    <div class="col-xs-5">
+                                        <input type="text" class="form-control" id="memail" name="memail" readonly value="">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-xs-4 control-label">Nr Mecanografico:</label>
+                                    <div class="col-xs-5">
+                                        <input type="text" class="form-control" id="mnr" name="mnr" readonly value="">
+                                    </div>
                                 </div>
                             </div>
+                            <div role="tabpanel" class="tab-pane " id="servicos">
+                                <table id="ver_servicos_utilizador"  class="table table-responsive table-striped ver_servicos_utilizador " style="margin-top:10px;">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>NOME</th>
+
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <button class="btn btn-success btn-sm btn-outline vu" title="Apagar" style="margin-top:-5px;display:none;">
+                                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info btn-outline" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade dadosservicos" id="editarUtilizador" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document" >
+            <div class="modal-content">
+                <form class="form-horizontal" role="form" action="{{ url('utilizadores/editar') }}" method="post">
+                    {{ csrf_field() }}
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">Editar Utilizador</h4>
+                    </div>
+                    <div class="modal-body row">
+                        <div class="col-md-10 col-md-offset-2">
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li id="li_dados2" role="presentation" class="active">
+                                    <a href="#dados2" aria-controls="dados" role="tab" data-toggle="tab">Dados</a>
+                                </li>
+                                <li id="li_servicos2" role="presentation">
+                                    <a href="#servicos2" aria-controls="servicos" role="tab" data-toggle="tab">Serviços</a>
+                                </li>
+                            </ul>
+                            <div id="tabs" class="tab-content">
+                                <div role="tabpanel" class="tab-pane active" id="dados2">
+                                    <div class="form-group" style="margin-top:20px;">
+                                        <label class="col-xs-4 control-label ">ID:</label>
+                                        <div class="col-xs-5">
+                                            <input type="text" class="form-control" id="mid" name="mid" readonly value="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label ">Nome:</label>
+                                        <div class="col-xs-5">
+                                            <input type="text" class="form-control" id="mnome" name="mnome" value="">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">Email</label>
+                                        <div class="col-xs-5">
+                                            <input type="text" class="form-control" id="memail" name="memail" value="">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-xs-4 control-label">Nr Mecanografico:</label>
+                                        <div class="col-xs-5">
+                                            <input type="text" class="form-control" id="mnr" name="mnr" value="">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="interno" class="col-md-4 control-label">Ativo </label>
+                                        <div class="col-md-2">
+                                            <input name="interno" id="interno" type="checkbox"  style="margin-top:10px;" >
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div role="tabpanel" class="tab-pane " id="servicos2">
+
+                                    <table id="servicos_utilizador" class="table table-responsive table-striped servicos_utilizador " style="margin-top:10px;">
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>NOME</th>
+                                            <th></th>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td>
+                                                <button class="btn btn-dangger btn-sm btn-outline vu" title="Apagar" style="margin-top:-5px;">
+                                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <div class="alert alert-success col-md-5 fadeInLeft animated text-center apagado" style="display:none;padding:10px;">
+                                        Serviço Apagado!
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="form-group pull-right" style="margin-right:30px;">
+                            <button type="submit" class="btn btn-info btn-outline" >Editar</button>
+                            <button type="button" class="btn btn-default btn-outline" data-dismiss="modal">Fechar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="apagarUtilizador" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document" >
+            <div class="modal-content">
+                <form class="form-horizontal" role="form" action="{{ url('utilizadores/apagar') }}" action="post">
+                    {{ csrf_field() }}
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Apagar Utilizador</h4>
+                    </div>
+                    <div class="modal-body row">
+                        <div class="col-md-offset-2 col-md-10">
                             <div class="form-group">
                                 <label class="col-xs-4 control-label ">Nome:</label>
                                 <div class="col-xs-5">
@@ -123,157 +276,10 @@
                                     <input type="text" class="form-control" id="mnr" name="mnr" readonly value="">
                                 </div>
                             </div>
-                        </div>
-                        <div role="tabpanel" class="tab-pane " id="servicos">
-                            <table id="ver_servicos_utilizador"  class="table table-responsive table-striped ver_servicos_utilizador " style="margin-top:10px;">
-                                <tr>
-                                    <th>ID</th>
-                                    <th>NOME</th>
-                                    <th></th>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td>
-                                        <button class="btn btn-success btn-sm btn-outline vu" title="Apagar" style="margin-top:-5px;display:none;">
-                                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                        </button>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-info btn-outline" data-dismiss="modal">Fechar</button>
 
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade dadosservicos" id="editarUtilizador" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document" >
-            <div class="modal-content">
-                <form class="form-horizontal" role="form" action="{{ url('utilizadores/editar') }}" method="post">
-                    {{ csrf_field() }}
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        <h4 class="modal-title" id="myModalLabel">Editar Utilizador</h4>
-                    </div>
-                    <div class="modal-body col-md-offset-2 col-md-10">
-                        <ul class="nav nav-tabs" role="tablist">
-                            <li id="li_dados2" role="presentation" class="active">
-                                <a href="#dados2" aria-controls="dados" role="tab" data-toggle="tab">Dados</a>
-                            </li>
-                            <li id="li_servicos2" role="presentation">
-                                <a href="#servicos2" aria-controls="servicos" role="tab" data-toggle="tab">Serviços</a>
-                            </li>
-                        </ul>
-                        <div id="tabs" class="tab-content">
-                            <div role="tabpanel" class="tab-pane active" id="dados2">
-                                <div class="form-group" style="margin-top:20px;">
-                                    <label class="col-xs-4 control-label ">ID:</label>
-                                    <div class="col-xs-5">
-                                        <input type="text" class="form-control" id="mid" name="mid" readonly value="">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-xs-4 control-label ">Nome:</label>
-                                    <div class="col-xs-5">
-                                        <input type="text" class="form-control" id="mnome" name="mnome" value="">
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="col-xs-4 control-label">Email</label>
-                                    <div class="col-xs-5">
-                                        <input type="text" class="form-control" id="memail" name="memail" value="">
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="col-xs-4 control-label">Nr Mecanografico:</label>
-                                    <div class="col-xs-5">
-                                        <input type="text" class="form-control" id="mnr" name="mnr" value="">
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="interno" class="col-md-4 control-label">Ativo </label>
-                                    <div class="col-md-2">
-                                        <input name="interno" id="interno" type="checkbox"  style="margin-top:10px;" >
-                                    </div>
-                                </div>
-                                <div class="form-group pull-right" style="margin-right:30px;">
-                                    <button type="submit" class="btn btn-info btn-outline" >Editar</button>
-                                    <button type="button" class="btn btn-default btn-outline" data-dismiss="modal">Fechar</button>
-                                </div>
-                            </div>
-                            <div role="tabpanel" class="tab-pane " id="servicos2">
-
-                                <table id="servicos_utilizador" class="table table-responsive table-striped servicos_utilizador " style="margin-top:10px;">
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>NOME</th>
-                                        <th></th>
-                                    </tr>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td>
-                                            <button class="btn btn-dangger btn-sm btn-outline vu" title="Apagar" style="margin-top:-5px;">
-                                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </table>
-                                <div class="alert alert-success col-md-5 fadeInLeft animated text-center apagado" style="display:none;padding:10px;">
-                                    Serviço Apagado!
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="apagarUtilizador" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document" >
-            <div class="modal-content">
-                <form class="form-horizontal" role="form" action="{{ url('utilizadores/apagar') }}" action="post">
-                    {{ csrf_field() }}
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Apagar Utilizador</h4>
-                    </div>
-                    <div class="modal-body col-md-offset-2 col-md-10">
-
-                        <div class="form-group">
-                            <label class="col-xs-4 control-label ">Nome:</label>
-                            <div class="col-xs-5">
-                                <input type="text" class="form-control" id="mnome" name="mnome" readonly value="">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-xs-4 control-label">Email</label>
-                            <div class="col-xs-5">
-                                <input type="text" class="form-control" id="memail" name="memail" readonly value="">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-xs-4 control-label">Nr Mecanografico:</label>
-                            <div class="col-xs-5">
-                                <input type="text" class="form-control" id="mnr" name="mnr" readonly value="">
-                            </div>
+                            <input type="hidden" class="form-control" id="mid" name="mid" value="">
                         </div>
 
-                        <input type="hidden" class="form-control" id="mid" name="mid" value="">
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-danger btn-outline" >Apagar</button>
@@ -293,27 +299,28 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title" id="myModalLabel">Atribuir Serviço</h4>
                     </div>
-                    <div class="modal-body col-md-offset-2 col-md-10">
-
-                        <div class="form-group{{ $errors->has('servico') ? ' has-error' : '' }}">
-                            <label for="servico" class="col-md-4 control-label">Serviço</label>
-                            <div class="col-md-4">
-                                <select id="servico" name="servico" style="width:200px;" class="select_servico_associado" >
-                                    <option></option>
-                                    {{--{{ $servicos = \App\Servicos::all() }}--}}
-                                    {{ $servicos = \App\Servicos::all()}}
-                                    @foreach($servicos as $servico)
-                                        <option value="{{ $servico->id }}" {!!  (old('servico')) == $servico->id ? "selected":"" !!}>{{ $servico->nome }}</option>
-                                    @endforeach
-                                </select>
-                                @if ($errors->has('servico'))
-                                    {{--<span class="help-block">
-                                        <strong>{{ $errors->first('servico_origem') }}</strong>
-                                    </span>--}}
-                                @endif
+                    <div class="modal-body row">
+                        <div class="col-md-offset-2 col-md-10">
+                            <div class="form-group{{ $errors->has('servico') ? ' has-error' : '' }}">
+                                <label for="servico" class="col-md-4 control-label">Serviço</label>
+                                <div class="col-md-4">
+                                    <select id="servico" name="servico" style="width:200px;" class="select_servico_associado" >
+                                        <option></option>
+                                        {{--{{ $servicos = \App\Servicos::all() }}--}}
+                                        {{ $servicos = \App\Servicos::all()}}
+                                        @foreach($servicos as $servico)
+                                            <option value="{{ $servico->id }}" {!!  (old('servico')) == $servico->id ? "selected":"" !!}>{{ $servico->nome }}</option>
+                                        @endforeach
+                                    </select>
+                                    @if ($errors->has('servico'))
+                                        {{--<span class="help-block">
+                                            <strong>{{ $errors->first('servico_origem') }}</strong>
+                                        </span>--}}
+                                    @endif
+                                </div>
                             </div>
+                            <input type="hidden" class="form-control" id="mid" name="mid" value="">
                         </div>
-                        <input type="hidden" class="form-control" id="mid" name="mid" value="">
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-success btn-outline" >Atribuir</button>
@@ -369,7 +376,7 @@
                 $.get('{{ url('/utilizadores/servicos?id=') }}'+ user_id ,function (data) {
                     console.log(data);
                     $('.ver_servicos_utilizador').empty();
-                    $('.ver_servicos_utilizador').append('<tr><th>ID</th><th>Nome</th><th></th></tr>');
+                    $('.ver_servicos_utilizador').append('<tr><th>ID</th><th>Nome</th></tr>');
                     $.each(data, function(index, subServicouser){
                         $('.ver_servicos_utilizador').append('<tr><td>' + subServicouser.id + '</td><td>' + subServicouser.nome + '</td></tr>');
                     })
