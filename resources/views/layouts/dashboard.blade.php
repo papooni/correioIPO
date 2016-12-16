@@ -2,7 +2,6 @@
 
 @section('body')
     <div id="wrapper">
-
         <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
@@ -166,9 +165,43 @@
                 <!-- /.col-lg-12 -->
             </div>
             <div class="row">
+                @if (session('novo'))
+                    <div id="mensagem" class="alert alert-success col-md-6 col-md-offset-3 fadeInDown animated text-center option">
+                        {{ session('novo') }}
+                    </div>
+                @endif
+
+                @if (session('mensagem'))
+                    <div id="mensagem" class="alert alert-success col-md-5 fadeInDown animated text-center" style="position: absolute;padding:10px;">
+                        {{ session('mensagem') }}
+                    </div>
+                @endif
+
+                @if (session('erro'))
+                    <div class="alert alert-danger col-md-3 col-md-offset-2 animated fadeInUp text-center" style="position: absolute; padding: 10px;margin-top: -80px;">
+                        {{ session('erro') }}
+                    </div>
+                @endif
                 @yield('section')
             </div>
             <!-- /#page-wrapper -->
         </div>
     </div>
+
+    <script src="{{ url('js/jquery-ui.js') }}"></script>
+    <script>
+        $(function() {
+            setTimeout(function() {
+                $("#mensagem").hide('blind', {}, 500)
+            }, 5000);
+        });
+
+        $(function() {
+            setTimeout(function() {
+                $("#novo").hide('blind', {}, 500)
+            }, 5000);
+        });
+
+
+    </script>
 @stop

@@ -4,7 +4,7 @@
     <link rel="stylesheet" href={{ asset("css/select2.css")}}>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="{{ url('css/animate.css') }}">
-    @if (session('mensagem'))
+    {{--@if (session('mensagem'))
         <div class="alert alert-success col-md-5 fadeInDown animated text-center" style="position: absolute;padding:10px;">
             {{ session('mensagem') }}
         </div>
@@ -14,7 +14,7 @@
         <div class="alert alert-danger col-md-3 col-md-offset-2 animated fadeInDown text-center" style="position: absolute; padding: 10px;">
             {{ session('erro') }}
         </div>
-    @endif
+    @endif--}}
 
     <div class="row">
         <div class="col-md-5 col-md-offset-7">
@@ -165,7 +165,7 @@
                         <h4 class="modal-title" id="myModalLabel">Editar Utilizador</h4>
                     </div>
                     <div class="modal-body row">
-                        <div class="col-md-10 col-md-offset-2">
+                        <div class="col-md-8 col-md-offset-2">
                             <ul class="nav nav-tabs" role="tablist">
                                 <li id="li_dados2" role="presentation" class="active">
                                     <a href="#dados2" aria-controls="dados" role="tab" data-toggle="tab">Dados</a>
