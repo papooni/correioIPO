@@ -118,6 +118,15 @@
                             </select>
                         </div>
                     </div>
+
+                    <div class="form-group">
+                        <label for="remember" class="col-md-4 control-label">Lembrar</label>
+
+                        <div class="col-md-6">
+                            <input type="checkbox" id="remember" class="" name="remember">
+                        </div>
+                    </div>
+
                     <div class="form-group">
                         <div class="col-md-6 col-md-offset-3">
                             <a class="btn btn-link" href="{{ url('/password/email') }}">Esqueceu a Password?</a>

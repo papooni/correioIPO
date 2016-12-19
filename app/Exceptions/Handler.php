@@ -53,28 +53,28 @@ class Handler extends ExceptionHandler
             return redirect('home')->with('erro','Página Não Existe!');
         }
 
-        if($exception instanceof TokenMismatchException){
+        elseif($exception instanceof TokenMismatchException){
             return redirect()->back()->with('erro','Token Errado!');
         }
 
-        if($exception instanceof ModelNotFoundException){
+        elseif($exception instanceof ModelNotFoundException){
             return redirect()->back()->with('erro','Erro de Base de Dados!');
         }
 
-        if($exception instanceof FatalErrorException){
+        elseif($exception instanceof FatalErrorException){
             return redirect()->back()->with('erro','Erro Fatal!');
         }
 
-        if($exception instanceof PDOException){
+        elseif($exception instanceof PDOException){
             return redirect('login')->with('erro','Erro de Ligação à BD');
         }
 
 
-        if($exception instanceof BadMethodCallException){
+        elseif($exception instanceof BadMethodCallException){
             return redirect('login')->with('erro',$exception->getMessage());
         }
 
-        if($exception instanceof ErrorException){
+        elseif($exception instanceof ErrorException){
             return redirect()->back()->with('erro',$exception->getMessage());
         }
 

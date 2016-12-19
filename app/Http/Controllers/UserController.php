@@ -245,14 +245,15 @@ class UserController extends Controller
         }
     }
 
-    public function login_normal($request){
-        if (Auth::attempt(['nr_mecanografico' => $request->nr_mecanografico, 'password' => $request->password]))
-        {
-            return redirect()->intended('home')->with('novo','Olá ' . Auth::user()->nome);
-        }else{
-            return redirect('login')->with('mensagem','ERRO DE LOGIN');
-        }
+    public function login_normal($request)
+    {
+        $remember = $request->remember;
 
+        if (Auth::attempt(['nr_mecanografico' => $request->nr_mecanografico, 'password' => $request->password],$remember)) {
+            return redirect()->intended('home')->with('novo', 'Olá ' . Auth::user()->nome);
+        } else {
+            return redirect('login')->with('mensagem', 'ERRO DE LOGIN');
+        }
     }
 
     public function login_sso($request){

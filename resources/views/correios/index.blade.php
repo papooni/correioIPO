@@ -1,8 +1,8 @@
 @extends('layouts.dashboard')
-@section('page_heading','Correios')
+@section('page_heading','Correio')
 @section('section')
     <link rel="stylesheet" href="{{ url('css/animate.css') }}">
-    @if (session('mensagem'))
+    {{--@if (session('mensagem'))
         <div class="alert alert-success col-md-5 col-md-offset-2 fadeInDown animated text-center">
             {{ session('mensagem') }}
         </div>
@@ -13,7 +13,7 @@
             {{ session('erro') }}
         </div>
     @endif
-
+--}}
     <div class="row">
         <div class="col-md-4 pull-right">
             {!!  Form::open(array('url' => "/correios/pesquisa", 'class' => 'navbar-form navbar-left', 'method' => 'GET')) !!}

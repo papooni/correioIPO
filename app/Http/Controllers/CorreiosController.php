@@ -437,7 +437,7 @@ class CorreiosController extends Controller
             return redirect('/correios/detalhes/'.  $id_correio)->with('correios',$correios)->with('titulo','Pesquisa Correio');
         }else{
             $correios = Correios::orderBy('created_at','desc')->paginate(10);
-            return view('correios/index')->with('correios',$correios)->with('titulo','Pesquisa Correio');
+            return view('correios/index')->with('correios',$correios)->with('titulo','Pesquisa Correio')->with('erro','erro de pesquisa');
         }
         //return redirect('utilizadores/index')->with('utilizadores',$utilizadores);
     }
