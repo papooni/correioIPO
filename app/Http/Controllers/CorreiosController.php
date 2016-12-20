@@ -19,11 +19,6 @@ use Illuminate\Support\Facades\Auth;
 class CorreiosController extends Controller
 {
 
-    /* public function __construct()
-     {
-         $this->middleware('auth:api');
-     }*/
-
     public function apagar(Request $request){
         var_dump('APAGAR CORREIO ' . $request->id );
         $correio = Correios::findorFail($request->id);
@@ -33,6 +28,7 @@ class CorreiosController extends Controller
         return redirect('/correios/index')->with('mensagem','Correio Apagado!');
     }
 
+    //versao normal de criacao de correio
     public function gravar(Request $request){
 
         $this->validate($request, [
@@ -92,6 +88,7 @@ class CorreiosController extends Controller
         return redirect('correios/index')->with('mensagem',$tipo_movimento->descricao . ' com o Nr. '.$idnovo .' de Correio Registada  '  );
     }
 
+    //grava novo correio mas é possivel após verificação de id adicionar utilizadores e/ou servicos
     public function gravar2(Request $request){
 
         $this->validate($request, [
@@ -172,7 +169,10 @@ class CorreiosController extends Controller
                 </body>
             </html>
                 ';
-        $emails_to = ['8030083@gmail.com'];
+
+        //envia email para o email do destinatario
+        $emails_to = User::find($colaborador_destino)->email;
+        //$emails_to = ['8030083@gmail.com'];
         $erro='';
         //Enviar Email
         try{

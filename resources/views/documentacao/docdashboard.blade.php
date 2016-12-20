@@ -26,7 +26,7 @@
                             <a href="{{ url ('/home') }}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
                         <li >
-                            <a href="#"><i class="fa fa-envelope fa-fw"></i> Php Framework Laravel<span class="fa arrow"></span></a>
+                            <a href="#"><img src="/img/docs/laravel.png" width="16" height="16" class=" fa-fw"> Php Framework Laravel<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
                                     <a href="{{ url ('requisitos') }}">Requisitos</a>
@@ -37,7 +37,7 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-user fa-fw"></i> Manuais
+                            <a href="#"><i class="fa fa-file-text-o  fa-fw"></i> Manuais
                                 <span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
@@ -50,10 +50,10 @@
                         </li>
 
                         <li {{ (Request::is('*bd') ? 'class="active"' : '') }}>
-                            <a href="{{ url ('bd') }}"><i class="fa fa-database"></i> Base de Dados</a>
+                            <a href="{{ url ('bd') }}"><i class="fa fa-database  fa-fw"></i> Base de Dados</a>
                         </li>
                         <li {{ (Request::is('*requisitos') ? 'class="active"' : '') }}>
-                            <a href="{{ url ('requisitos') }}"><i class="fa fa-cog fa-fw"></i> Requisitos<span class="fa arrow"></span></a>
+                            <a href="{{ url ('requisitos') }}"><i class="fa fa-exclamation-triangle fa-fw"></i> Requisitos<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
                                     <a href="{{ url ('utilizadores') }}">Funcionais</a>
@@ -64,7 +64,7 @@
                             </ul>
                         </li>
                         <li {{ (Request::is('*forms') ? 'class="active"' : '') }}>
-                            <a href="{{ url ('forms') }}"><i class="fa fa-cog fa-fw"></i> Papeis de Utilizadores<span class="fa arrow"></span></a>
+                            <a href="{{ url ('forms') }}"><i class="fa fa-users fa-fw"></i> Papeis de Utilizadores<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
                                     <a href="{{ url ('utilizadores') }}">Administrador</a>
