@@ -171,26 +171,30 @@ class CorreiosController extends Controller
                 ';
 
         //envia email para o email do destinatario
-        $emails_to = User::find($colaborador_destino)->email;
-        //$emails_to = ['8030083@gmail.com'];
-        $erro='';
-        //Enviar Email
-        try{
-            Mail::send(array('html' => 'emails.send'), ['title' => $title, 'content' => $content], function ($message) use ($user, $emails_to, $title,$assunto) {
-                $message->from('app@mail.pt', 'Gestão Correio Interno IPO');
-                $message->to($emails_to);
-                //$message->attach($attach);
-                $message->subject($assunto);
-            });
-        }catch(Exception $exception){
-            $erro = $exception;
+        if (User::findorFail($colaborador_destino)->notificacoes){
+            //$emails_to = ['8030083@gmail.com'];
+            $emails_to = User::findorFail($colaborador_destino)->email;
+            $erro='';
+            //Enviar Email
+            try{
+                Mail::send(array('html' => 'emails.send'), ['title' => $title, 'content' => $content], function ($message) use ($user, $emails_to, $title,$assunto) {
+                    $message->from('app@mail.pt', 'Gestão Correio Interno IPO');
+                    $message->to($emails_to);
+                    //$message->attach($attach);
+                    $message->subject($assunto);
+                });
+            }catch(Exception $exception){
+                $erro = $exception;
+            }
+
+            if( emptyString($erro) ){
+                $erro = ' Mail enviado';
+            }else{
+                $erro = ' Erro no envio de Email';
+            }
         }
 
-        if( emptyString($erro) ){
-            $erro = ' Mail enviado';
-        }else{
-            $erro = ' Erro no envio de Email';
-        }
+
 
         return redirect('correios/index')
             ->with('mensagem',$tipo_movimento->descricao . ' com o Nr. '.$idnovo .' de Correio Registada. ' . $erro);
