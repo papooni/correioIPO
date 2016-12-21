@@ -285,9 +285,8 @@ class UserController extends Controller
             $_SESSION['login_user'] = $nis;
             $_SESSION['session_id'] = $sessionid;
             //grava um novo acesso na tabela de acessos
-            $queryAcesso = "INSERT INTO acesso (num_mec, data_acesso)
-                       VALUES ('$nis', '$data')";
-            $query = mysqli_query($ligacao, $queryAcesso);
+           // $queryAcesso = "INSERT INTO acesso (num_mec, data_acesso) VALUES ('$nis', '$data')";
+            //$query = mysqli_query($ligacao, $queryAcesso);
             //query para destruir o token logo mal inicia a sessão
             $queryDelete = "DELETE from PORTAL_SSO_SIIMA WHERE USER_ID='".$nis."' and SESSION_ID='".$sessionid."'";
             $result = oci_parse($connect, $queryDelete);
@@ -299,13 +298,13 @@ class UserController extends Controller
         }
         //fecha ligações
         oci_close($connect);
-        mysqli_close($ligacao);
+        //mysqli_close($ligacao);
         return redirect('login')->with('mensagem','LOGIN SSO');
     }
 
     public function login_ad($request){
         $ligacao = '';
-        $table = mysqli_select_db($ligacao,"plano_contingencia");
+        //$table = mysqli_select_db($ligacao,"plano_contingencia");
         $user = $request->nr_mecanografico;
         $pass = $request->password;
         date_default_timezone_set("Europe/Lisbon");
@@ -336,9 +335,8 @@ class UserController extends Controller
             if (($bd) and ($autorizado==true)) {
                 $_SESSION['login_user'] = $user;
                 //grava um novo acesso na tabela de acessos
-                $queryAcesso = "INSERT INTO acesso (num_mec, data_acesso)
-                       VALUES ('$user', '$data')";
-                $query = mysqli_query($ligacao, $queryAcesso);
+                //$queryAcesso = "INSERT INTO acesso (num_mec, data_acesso) VALUES ('$user', '$data')";
+                //$query = mysqli_query($ligacao, $queryAcesso);
             } else {
                 $error= "Número Mecanográfico ou Password inválido!";
             }

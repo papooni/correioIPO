@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 @section('page_heading','Dashboard')
 @section('section')
-    {{--<link rel="stylesheet" href="{{ url('css/animate.css') }}">
+    <link rel="stylesheet" href="{{ url('css/animate.css') }}">
     @if (session('novo'))
         <div id="mensagem" class="alert alert-success col-md-6 col-md-offset-3 fadeInDown animated text-center option">
             {{ session('novo') }}
@@ -13,7 +13,7 @@
             {{ session('erro') }}
         </div>
     @endif
---}}
+
     <div class="col-sm-12">
         <div class="row">
 

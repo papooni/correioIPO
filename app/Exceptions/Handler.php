@@ -9,6 +9,7 @@ use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Session\TokenMismatchException;
 use Psy\Exception\ErrorException;
 use Symfony\Component\Debug\Exception\FatalErrorException;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
@@ -19,12 +20,12 @@ class Handler extends ExceptionHandler
      * @var array
      */
     protected $dontReport = [
-        \Illuminate\Auth\AuthenticationException::class,
+       /* \Illuminate\Auth\AuthenticationException::class,
         \Illuminate\Auth\Access\AuthorizationException::class,
         \Symfony\Component\HttpKernel\Exception\HttpException::class,
         \Illuminate\Database\Eloquent\ModelNotFoundException::class,
         \Illuminate\Session\TokenMismatchException::class,
-        \Illuminate\Validation\ValidationException::class,
+        \Illuminate\Validation\ValidationException::class,*/
     ];
 
     /**
@@ -65,17 +66,20 @@ class Handler extends ExceptionHandler
             return redirect()->back()->with('erro','Erro Fatal!');
         }
 
-        elseif($exception instanceof PDOException){
-            return redirect('login')->with('erro','Erro de Ligação à BD');
+        elseif($exception instanceof \PDOException){
+            return redirect('home')->with('erro','Erro de Ligação à BD');
         }
 
-
-        elseif($exception instanceof BadMethodCallException){
-            return redirect('login')->with('erro',$exception->getMessage());
+        elseif($exception instanceof  \BadMethodCallException){
+            return redirect('home')->with('erro',$exception->getMessage());
         }
 
         elseif($exception instanceof ErrorException){
-            return redirect()->back()->with('erro',$exception->getMessage());
+            return redirect('home')->with('erro',$exception->getMessage()->with('mensagem','mensagem'));
+        }
+
+        elseif($exception instanceOf MethodNotAllowedHttpException){
+            return redirect('home')->with('erro','Erro! Não Permitido!')->with('mensagem','mensagem');
         }
 
         return parent::render($request, $exception);

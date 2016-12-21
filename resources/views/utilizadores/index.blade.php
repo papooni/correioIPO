@@ -74,11 +74,11 @@
                 </tr>
             @endforeach
         </table>
-        {{--<div class="pull-right">
-            @if( count($utilizadores) > 1)
+        <div class="pull-right">
+            @if( count($utilizadores) > 0)
                 {{ $utilizadores->links() }}
             @endif
-        </div>--}}
+        </div>
     </div>
 
     <div class="modal fade verdadosservicos" id="verUtilizador" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
