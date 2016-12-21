@@ -20,15 +20,7 @@ class CriarTipoMovimentos extends Migration
             $table->integer('alterado_por')->nullable();
             $table->timestamps();
         });
-
-        DB::table('tipo_movimentos')->insert([
-            'descricao' => 'Entrada',
-        ]);
-        DB::table('tipo_movimentos')->insert([
-            'descricao' => 'Saída',
-        ]);
     }
-
 
     /**
      * Reverse the migrations.

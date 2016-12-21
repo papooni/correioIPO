@@ -122,7 +122,7 @@
                             @endforeach--}}
                 </table>
                 <div class="pull-right">
-                    @if( count($correios) >= 1)
+                    @if( count($correios) > 1)
                         {{ $correios->links() }}
                     @endif
                 </div>
