@@ -50,7 +50,7 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        if($exception instanceof NotFoundHttpException){
+        /*if($exception instanceof NotFoundHttpException){
             return redirect('home')->with('erro','Página Não Existe!');
         }
 
@@ -80,7 +80,7 @@ class Handler extends ExceptionHandler
 
         elseif($exception instanceOf MethodNotAllowedHttpException){
             return redirect('home')->with('erro','Erro! Não Permitido!')->with('mensagem','mensagem');
-        }
+        }*/
 
         return parent::render($request, $exception);
     }
