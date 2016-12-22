@@ -52,6 +52,7 @@
                                         <i class="fa fa-envelope"></i> Meu Correio</a></li>
                             @endif
                             <li><a href="{{ url('/docs2') }}"><i class="fa fa-btn fa-book"></i> Documentação</a></li>
+                            <li><a href="{{ url('/reset_password') }}"><i class="fa fa-btn fa-unlock-alt"></i> Nova Password</a></li>
                             <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i> Sair</a></li>
                         </ul>
                     </li>

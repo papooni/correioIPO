@@ -23,6 +23,12 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/logout', 'UserController@logout');//->middleware('auth');
 
+    Route::get('/reset_password',function(){
+        return view('auth/passwords/reset');
+    });
+
+    Route::get('pedir_nova_password','UserController@nova_password');
+
     Route::get('/registar', function () {
         return view('auth/registar');
     });//->middleware('auth');

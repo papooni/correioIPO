@@ -8,6 +8,7 @@ use App\Servicos;
 use App\User;
 use App\UtilizadorServicos;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\Rule;
@@ -225,6 +226,26 @@ class UserController extends Controller
         return Response::json($data);
     }
 
+
+    public function nova_password(Request $request){
+
+        $this->validate($request,[
+            'old_password' => 'required|min:6',
+            'new_password' => 'required|min:6|confirmed',
+            'new_password_confirmation' => 'required|min:6'
+        ]);
+
+        $old_password = $request->old_password;
+
+
+        if( Hash::check($old_password, Auth::user()->password )){
+            var_dump('IGUAL');
+        }else{
+            return redirect('pedir_nova_password')->with('erro','Password Antiga Errada!');
+        }
+
+    }
+
     ///////////////////////////////////////////////////////
 
     public function entrar(Request $request){
@@ -259,6 +280,7 @@ class UserController extends Controller
 
     public function login_sso($request){
         $ligacao = '';
+
         //BD Oracle
         //Dados de ligação à base de dados oracle
         $user = "portal_hlp";
@@ -268,6 +290,7 @@ class UserController extends Controller
                 (CONNECT_DATA=(SERVER=dedicated)(SERVICE_NAME=infra.ipoporto.min-saude.pt)))";
         //conexão à bd oracle
         $connect = oci_connect($user, $password, $db);
+
 
         $nis = '';
         $sessionid = '';
@@ -286,7 +309,7 @@ class UserController extends Controller
             $_SESSION['login_user'] = $nis;
             $_SESSION['session_id'] = $sessionid;
             //grava um novo acesso na tabela de acessos
-           // $queryAcesso = "INSERT INTO acesso (num_mec, data_acesso) VALUES ('$nis', '$data')";
+            //$queryAcesso = "INSERT INTO acesso (num_mec, data_acesso) VALUES ('$nis', '$data')";
             //$query = mysqli_query($ligacao, $queryAcesso);
             //query para destruir o token logo mal inicia a sessão
             $queryDelete = "DELETE from PORTAL_SSO_SIIMA WHERE USER_ID='".$nis."' and SESSION_ID='".$sessionid."'";
