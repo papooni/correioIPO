@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Correios;
+use App\Http\Middleware\Authenticate;
 use App\Servicos;
 use App\User;
 use App\UtilizadorServicos;
@@ -249,7 +250,7 @@ class UserController extends Controller
     {
         $remember = $request->remember;
 
-        if (Auth::attempt(['nr_mecanografico' => $request->nr_mecanografico, 'password' => $request->password],$remember)) {
+        if (Auth::attempt(['nr_mecanografico' => ltrim($request->nr_mecanografico,'i'), 'password' => $request->password],$remember)) {
             return redirect()->intended('home')->with('novo', 'Olá ' . Auth::user()->nome);
         } else {
             return redirect('login')->with('mensagem', 'ERRO DE LOGIN');
@@ -334,14 +335,25 @@ class UserController extends Controller
             }
             if (($bd) and ($autorizado==true)) {
                 $_SESSION['login_user'] = $user;
+
+                $nr_user = ltrim($user,'i');
+                $user = User::where('nr_mecanografico','=',$nr_user)->get();
+                if(Auth::loginUsingId($user->id)){
+                    return redirect()->intended('home')->with('novo','Olá ' . Auth::user()->nome);
+                }else{
+                    return redirect('login')->with('mensagem','ERRO DE LOGIN');
+                }
+
                 //grava um novo acesso na tabela de acessos
                 //$queryAcesso = "INSERT INTO acesso (num_mec, data_acesso) VALUES ('$user', '$data')";
                 //$query = mysqli_query($ligacao, $queryAcesso);
             } else {
                 $error= "Número Mecanográfico ou Password inválido!";
+                return redirect('login')->with('mensagem','ERRO DE LOGIN' . $error);
             }
         } else {
             $error = "Nao Conectado no servidor";
+            return redirect('login')->with('mensagem','ERRO DE LOGIN' . $error);
         }
         ldap_unbind($ad);
 
