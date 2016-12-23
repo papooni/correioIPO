@@ -19,7 +19,7 @@
 
                                 @if ($errors->has('old_password'))
                                     <span class="help-block">
-                                        {{--<strong>{{ $errors->first('old_password') }}</strong>--}}
+                                        <strong>{{ $errors->first('old_password') }}</strong>
                                     </span>
                                 @endif
                             </div>

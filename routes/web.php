@@ -10,7 +10,13 @@ Auth::routes();
 
 Route::get('/', function () {return view('welcome');});
 
-Route::get('login',function(){return view('auth/login');});
+Route::get('login',function(){
+    if (Auth::check()){
+        return view('home');
+    }else{
+        return view('auth/login');
+    }
+});
 
 Route::get('/password/email', function(){
     return view('auth/passwords/email');

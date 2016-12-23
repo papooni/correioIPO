@@ -159,32 +159,32 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="page-header">
-                        <h1>@yield('page_heading')</h1>
-                    </div>
+                        <div class="page-header">
+                            <h1>@yield('page_heading')</h1>
+
+                        @if (session('novo'))
+                            <div id="mensagem" class="alert alert-success col-md-6 col-md-offset-3 fadeInUp animated text-center option" style="position: absolute;padding:10px;margin-top: -50px;">
+                                {{ session('novo') }}
+                            </div>
+                        @endif
+
+                        @if (session('mensagem'))
+                            <div id="mensagem" class="alert alert-success col-md-5 col-md-offset-3 fadeInUp animated text-center" style="position: absolute;padding:10px;margin-top: -50px;">
+                                {{ session('mensagem') }}
+                            </div>
+                        @endif
+
+                        @if (session('erro'))
+                            <div class="alert alert-danger col-md-3 col-md-offset-2 animated fadeInUp text-center" style="position: absolute; padding: 10px;margin-top: -50px;">
+                                {{ session('erro') }}
+                            </div>
+                        @endif
+                        </div>
+                        @yield('section')
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
-            <div class="row">
-                @if (session('novo'))
-                    <div id="mensagem" class="alert alert-success col-md-6 col-md-offset-3 fadeInDown animated text-center option">
-                        {{ session('novo') }}
-                    </div>
-                @endif
 
-                @if (session('mensagem'))
-                    <div id="mensagem" class="alert alert-success col-md-5 fadeInDown animated text-center" style="position: absolute;padding:10px;">
-                        {{ session('mensagem') }}
-                    </div>
-                @endif
-
-                @if (session('erro'))
-                    <div class="alert alert-danger col-md-3 col-md-offset-2 animated fadeInUp text-center" style="position: absolute; padding: 10px;margin-top: -80px;">
-                        {{ session('erro') }}
-                    </div>
-                @endif
-                @yield('section')
-            </div>
             <!-- /#page-wrapper -->
         </div>
     </div>

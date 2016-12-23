@@ -237,33 +237,40 @@ class UserController extends Controller
 
         $old_password = $request->old_password;
 
-
         if( Hash::check($old_password, Auth::user()->password )){
-            var_dump('IGUAL');
+            $user = Auth::user();
+            $user->password = bcrypt($request->new_password);
+            $user -> alterado_por = Auth::user()->id;
+            $user->save();
+            return redirect('home')->with('mensagem','Password Alterada');
         }else{
             return redirect('pedir_nova_password')->with('erro','Password Antiga Errada!');
         }
 
     }
 
-    ///////////////////////////////////////////////////////
+    /////////////////////////////////////////////////
 
-    public function entrar(Request $request){
+    public function entrar(Request $request)
+    {
         $this->validate($request, [
             'nr_mecanografico' => 'required',
             'password' => 'required|min:6',
         ]);
-        if ($request->ligacao == 0 ){
-            //NORMAL
-            return $this->login_normal($request);
-        }elseif ($request->ligacao == 1 ){
-            //ACTIVE DIRECTORY
-            return $this->login_ad($request);
-        }elseif($request->ligacao == 2 ) {
-            //SINGLE SIGN ON
-            return $this->login_sso($request);
+
+        if (isset($_REQUEST['cod_util']) && isset($_REQUEST['sessionid'])) {
+            return $this->login_sso($_REQUEST['cod_util'],$_REQUEST['sessionid']);
         }else{
-            return view('/welcome');
+            if ($request->ligacao == 0) {
+                //NORMAL
+                return $this->login_normal($request);
+            } elseif ($request->ligacao == 1) {
+                //ACTIVE DIRECTORY
+                return $this->login_ad($request);
+
+            } else {
+                return view('/welcome');
+            }
         }
     }
 
@@ -278,7 +285,7 @@ class UserController extends Controller
         }
     }
 
-    public function login_sso($request){
+    public function login_sso($nis,$sessionid){
         $ligacao = '';
 
         //BD Oracle
@@ -292,9 +299,10 @@ class UserController extends Controller
         $connect = oci_connect($user, $password, $db);
 
 
-        $nis = '';
-        $sessionid = '';
-        $table = mysqli_select_db($ligacao,"plano_contingencia");
+        //$nis = isset($_REQUEST['cod_util']) == true ? $_REQUEST['cod_util'] : '';
+        //$sessionid= isset($_REQUEST['sessionid']) == true ? $_REQUEST['sessionid'] : '';
+
+        //$table = mysqli_select_db($ligacao,"plano_contingencia");
         //data actual
         date_default_timezone_set("Europe/Lisbon");
         $data =date("Y-m-d H:i:s");
@@ -304,10 +312,24 @@ class UserController extends Controller
         //executa a query
         oci_execute($result);
         $tmpcount = oci_fetch($result);
-        //se ecnontrar alguma linha guardar as variaveis de sessão
+        //se encontrar alguma linha guardar as variaveis de sessão
         if ($tmpcount==1) {
             $_SESSION['login_user'] = $nis;
             $_SESSION['session_id'] = $sessionid;
+
+            $nr_user = ltrim($nis,'i');
+            $user = User::where('nr_mecanografico','=',$nr_user)->get();
+            if(!empty($user)){
+                if(Auth::loginUsingId($user->id)){
+                    return redirect()->intended('home')->with('novo','Olá ' . Auth::user()->nome);
+                }else{
+                    return redirect('login')->with('mensagem','ERRO DE LOGIN');
+                }
+            }else{
+                return redirect('login')->with('mensagem','ERRO DE USER');
+            }
+
+
             //grava um novo acesso na tabela de acessos
             //$queryAcesso = "INSERT INTO acesso (num_mec, data_acesso) VALUES ('$nis', '$data')";
             //$query = mysqli_query($ligacao, $queryAcesso);
@@ -387,6 +409,5 @@ class UserController extends Controller
         Auth::logout();
         return redirect('login');
     }
-
 
 }
