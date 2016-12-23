@@ -297,11 +297,8 @@ class UserController extends Controller
                 (CONNECT_DATA=(SERVER=dedicated)(SERVICE_NAME=infra.ipoporto.min-saude.pt)))";
         //conexão à bd oracle
         $connect = oci_connect($user, $password, $db);
-
-
         //$nis = isset($_REQUEST['cod_util']) == true ? $_REQUEST['cod_util'] : '';
         //$sessionid= isset($_REQUEST['sessionid']) == true ? $_REQUEST['sessionid'] : '';
-
         //$table = mysqli_select_db($ligacao,"plano_contingencia");
         //data actual
         date_default_timezone_set("Europe/Lisbon");
@@ -329,7 +326,6 @@ class UserController extends Controller
                 return redirect('login')->with('mensagem','ERRO DE USER');
             }
 
-
             //grava um novo acesso na tabela de acessos
             //$queryAcesso = "INSERT INTO acesso (num_mec, data_acesso) VALUES ('$nis', '$data')";
             //$query = mysqli_query($ligacao, $queryAcesso);
@@ -345,7 +341,7 @@ class UserController extends Controller
         //fecha ligações
         oci_close($connect);
         //mysqli_close($ligacao);
-        return redirect('login')->with('mensagem','LOGIN SSO');
+        //return redirect('login')->with('mensagem','LOGIN SSO');
     }
 
     public function login_ad($request){
