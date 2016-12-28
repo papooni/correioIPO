@@ -7,8 +7,14 @@ use App\UtilizadorServicos;
 Auth::routes();
 
 //Route::auth();
+/*
+Route::get('/', function () {
+    return view('welcome');});*/
 
-Route::get('/', function () {return view('welcome');});
+
+
+Route::get('/','UserController@entrar');
+
 
 Route::get('login',function(){
     if (Auth::check()){
@@ -22,7 +28,7 @@ Route::get('/password/email', function(){
     return view('auth/passwords/email');
 });
 
-Route::get('/entrar', 'UserController@entrar');
+Route::get('/entrar', 'UserController@login');
 
 
 Route::group(['middleware' => ['auth']], function () {

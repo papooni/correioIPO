@@ -253,31 +253,32 @@ class UserController extends Controller
 
     public function entrar(Request $request)
     {
+        if (isset($_REQUEST['cod_util']) && isset($_REQUEST['sessionid'])) {
+            return $this->login_sso($_REQUEST['cod_util'],$_REQUEST['sessionid']);
+        }else{
+            return view('auth/login');
+        }
+    }
+
+    public function login(Request $request){
         $this->validate($request, [
             'nr_mecanografico' => 'required',
             'password' => 'required|min:6',
         ]);
-
-        if (isset($_REQUEST['cod_util']) && isset($_REQUEST['sessionid'])) {
-            return $this->login_sso($_REQUEST['cod_util'],$_REQUEST['sessionid']);
-        }else{
-            if ($request->ligacao == 0) {
-                //NORMAL
-                return $this->login_normal($request);
-            } elseif ($request->ligacao == 1) {
-                //ACTIVE DIRECTORY
-                return $this->login_ad($request);
-
-            } else {
-                return view('/welcome');
-            }
+        if ($request->ligacao == 0) {
+            //NORMAL
+            return $this->login_normal($request);
+        } elseif ($request->ligacao == 1) {
+            //ACTIVE DIRECTORY
+            return $this->login_ad($request);
+        } else {
+            return view('/welcome');
         }
     }
 
     public function login_normal($request)
     {
         $remember = $request->remember;
-
         if (Auth::attempt(['nr_mecanografico' => ltrim($request->nr_mecanografico,'i'), 'password' => $request->password],$remember)) {
             return redirect()->intended('home')->with('novo', 'Olá ' . Auth::user()->nome);
         } else {
@@ -314,10 +315,12 @@ class UserController extends Controller
             $_SESSION['login_user'] = $nis;
             $_SESSION['session_id'] = $sessionid;
 
-            $nr_user = ltrim($nis,'i');
-            $user = User::where('nr_mecanografico','=',$nr_user)->get();
+            $nr_user = ltrim(strtolower($nis),'i');
+            $user = User::where('nr_mecanografico','=',$nr_user)->first();
             if(!empty($user)){
                 if(Auth::loginUsingId($user->id)){
+                    $queryDelete = "DELETE from PORTAL_SSO_SIIMA WHERE USER_ID='".$nis."' and SESSION_ID='".$sessionid."'";
+                    $result = oci_parse($connect, $queryDelete);
                     return redirect()->intended('home')->with('novo','Olá ' . Auth::user()->nome);
                 }else{
                     return redirect('login')->with('mensagem','ERRO DE LOGIN');
@@ -330,8 +333,7 @@ class UserController extends Controller
             //$queryAcesso = "INSERT INTO acesso (num_mec, data_acesso) VALUES ('$nis', '$data')";
             //$query = mysqli_query($ligacao, $queryAcesso);
             //query para destruir o token logo mal inicia a sessão
-            $queryDelete = "DELETE from PORTAL_SSO_SIIMA WHERE USER_ID='".$nis."' and SESSION_ID='".$sessionid."'";
-            $result = oci_parse($connect, $queryDelete);
+
             //executa a query
             oci_execute($result);
         } else {
@@ -366,10 +368,10 @@ class UserController extends Controller
             // Bind
             $bd = ldap_bind($ad, $user . "@" . $dominio, $pass);
             $basedn = 'dc=porto,dc=local';
-            $userdn = getDN($ad, $user, $basedn);
+            $userdn = $this->getDN($ad, $user, $basedn);
             //grupo permitido
             $group ="internetaccess";
-            if (checkGroupEx($ad, $userdn, getDN($ad, $group, $basedn))) {
+            if ($this->checkGroupEx($ad, $userdn, $this->getDN($ad, $group, $basedn))) {
                 $autorizado=true;
             } else {
                 $autorizado=false;
@@ -377,8 +379,8 @@ class UserController extends Controller
             if (($bd) and ($autorizado==true)) {
                 $_SESSION['login_user'] = $user;
 
-                $nr_user = ltrim($user,'i');
-                $user = User::where('nr_mecanografico','=',$nr_user)->get();
+                $nr_user = ltrim(strtolower($user),'i');
+                $user = User::where('nr_mecanografico','=',$nr_user)->first();
                 if(Auth::loginUsingId($user->id)){
                     return redirect()->intended('home')->with('novo','Olá ' . Auth::user()->nome);
                 }else{
@@ -405,5 +407,34 @@ class UserController extends Controller
         Auth::logout();
         return redirect('login');
     }
+
+
+    public function checkGroupEx($ad, $userdn, $groupdn) {
+        $attributes = array('memberof');
+        $result = ldap_read($ad, $userdn, '(objectclass=*)', $attributes);
+        if ($result === FALSE) { return FALSE; };
+        $entries = ldap_get_entries($ad, $result);
+        if ($entries['count'] <= 0) { return FALSE; };
+        if (empty($entries[0]['memberof'])) { return FALSE; } else {
+            for ($i = 0; $i < $entries[0]['memberof']['count']; $i++) {
+                if ($entries[0]['memberof'][$i] == $groupdn) { return TRUE; }
+                elseif ($this->checkGroupEx($ad, $entries[0]['memberof'][$i], $groupdn)) { return TRUE; };
+            };
+        };
+        return FALSE;
+    }
+
+    public function getDN($ad, $samaccountname, $basedn) {
+        $attributes = array('dn');
+        $result = ldap_search($ad, $basedn,
+            "(samaccountname={$samaccountname})", $attributes);
+        if ($result === FALSE) { return ''; }
+        $entries = ldap_get_entries($ad, $result);
+        if ($entries['count']>0) { return $entries[0]['dn']; }
+        else { return ''; };
+    }
+
+
+
 
 }

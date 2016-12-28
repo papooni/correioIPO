@@ -114,7 +114,6 @@
                             <select id="ligacao" name="ligacao" class="form-control">
                                 <option value="0">Normal</option>
                                 <option value="1">Active Directory</option>
-                                <option value="2">SSO</option>
                             </select>
                         </div>
                     </div>
