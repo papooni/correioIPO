@@ -4,12 +4,12 @@
 
     <link rel="stylesheet" href="{{ url('css/animate.css') }}">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
-    @if (session('mensagem'))
+    {{--@if (session('mensagem'))
         <div class="alert alert-success animated fadeIn">
             {{ session('mensagem') }}
-            {{-- @include('widgets.alert', array('class'=>'success col-md-8', 'dismissable'=>true, 'message'=>  session('novo') , 'icon'=> 'check'))--}}
+            --}}{{-- @include('widgets.alert', array('class'=>'success col-md-8', 'dismissable'=>true, 'message'=>  session('novo') , 'icon'=> 'check'))--}}{{--
         </div>
-    @endif
+    @endif--}}
 
     <div class="row">
         <div class="col-md-7 col-md-offset-4">

@@ -429,7 +429,7 @@ class CorreiosController extends Controller
             $outubro,
             $novembro,
             $dezembro
-        ));
+        ))->with('ano',$ano);
 
     }
 

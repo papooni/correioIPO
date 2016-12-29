@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Servicos;
+use App\UtilizadorServicos;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
@@ -24,9 +25,23 @@ class ServicosController extends Controller
     }
 
     public function apagar(Request $request){
-        $servico = Servicos::find($request->get('id'));
-        $servico->forceDelete();
-        return redirect('servicos/index')->with('servicos',Servicos::all())->with('mensagem','Serviço ' .$request->get('id') . '  ' .$request->get('nome')   .' Apagado!');
+
+        $utilizadorservico = UtilizadorServicos::where('servicos_id','=',$request->get('id'))->get();
+
+        if(count($utilizadorservico) > 0){
+
+            return redirect('servicos/index')->with('erro','Não Pode Apagar! Existem Utilizadores Associados a este serviço!');
+        }
+        else{
+            $servico = Servicos::find($request->get('id'));
+            $servico->forceDelete();
+            return redirect('servicos/index')->with('servicos',Servicos::all())->with('mensagem','Serviço ' .$request->get('id') . '  ' .$request->get('nome')   .' Apagado!');
+        }
+
+
+
+
+
     }
 
     public function editar(Request $request){

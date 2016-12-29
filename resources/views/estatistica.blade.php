@@ -1,5 +1,5 @@
 @extends('layouts.dashboard')
-@section('page_heading','Estatística Mensal')
+@section('page_heading','Estatística Mensal de ' . $ano)
 @section('section')
 
 
