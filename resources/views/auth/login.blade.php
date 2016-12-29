@@ -19,11 +19,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
     <style>
+
         html, body {
             height: 100%;
             width: 100%;
         }
-
         html {
             display: table;
             margin: auto;
@@ -79,14 +79,11 @@
                     {{ csrf_field() }}
                     <div class="form-group{{ $errors->has('nr_mecanografico') ? ' has-error' : '' }}">
                         <label for="nr_mecanografico" class="col-md-4 control-label">Utilizador</label>
-
                         <div class="col-md-6 col-sm-6 input-group">
-
-                                 <span class="input-group-addon" id="basic-addon1">
+                            <span class="input-group-addon" id="basic-addon1">
                                 <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                                </span>
+                            </span>
                             <input id="nr_mecanografico" type="text" class="form-control" name="nr_mecanografico" value="{{ old('nr_mecanografico') }}">
-
                             @if ($errors->has('nr_mecanografico'))
                                 {{--<span class="help-block">
                                     <strong>{{ $errors->first('email') }}</strong>

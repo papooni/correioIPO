@@ -163,7 +163,7 @@
                             <h1>@yield('page_heading')</h1>
 
                         @if (session('novo'))
-                            <div id="mensagem" class="alert alert-success col-md-6 col-md-offset-3 fadeInUp animated text-center option" style="position: absolute;padding:10px;margin-top: -50px;">
+                            <div id="mensagem" class="alert alert-success col-md-5 col-md-offset-3 fadeInUp animated text-center option" style="position: absolute;padding:10px;margin-top: -50px;">
                                 {{ session('novo') }}
                             </div>
                         @endif
@@ -175,7 +175,7 @@
                         @endif
 
                         @if (session('erro'))
-                            <div class="alert alert-danger col-md-3 col-md-offset-2 animated fadeInUp text-center" style="position: absolute; padding: 10px;margin-top: -50px;">
+                            <div class="alert alert-danger col-md-5 col-md-offset-5 animated fadeInUp text-center" style="position: absolute; padding: 10px;margin-top: -50px;">
                                 {{ session('erro') }}
                             </div>
                         @endif
