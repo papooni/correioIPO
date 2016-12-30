@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Input;
 
 
 class ServicosController extends Controller
+
 {
     public function inserir(Request $request){
         $this->validate($request, [
@@ -29,7 +30,6 @@ class ServicosController extends Controller
         $utilizadorservico = UtilizadorServicos::where('servicos_id','=',$request->get('id'))->get();
 
         if(count($utilizadorservico) > 0){
-
             return redirect('servicos/index')->with('erro','Não Pode Apagar! Existem Utilizadores Associados a este serviço!');
         }
         else{
